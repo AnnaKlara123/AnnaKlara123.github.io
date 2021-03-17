@@ -8,8 +8,8 @@ p {
   color: teal;
   }
   
-  .uppercase {
-   text-transform: uppercase; 
+  .lowercase {
+   text-transform: lowercase; 
   }
   #article-title{ 
     font-family: cursive;
