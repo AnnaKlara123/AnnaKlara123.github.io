@@ -11,7 +11,8 @@ body {
   
   h1 {
     font-family: "Georgia";
-    color: #FFF;
+    text-align: center;
+     color: #FFF;
     font-size: 2em;
     padding-top: 100px;
     width: 100%;
@@ -49,6 +50,8 @@ body {
   }
   
   .caption {
+    background-color: white;
+    color: black;
     display: block;
     font-family: 'Playfair Display', serif;
     font-size: 14px;
