@@ -24,3 +24,6 @@ p {
   .capitalize {
     text-transform: capitalize;
   }
+  h2.destination {
+    font-family: cursive;
+  }
