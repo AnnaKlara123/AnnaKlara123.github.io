@@ -3,6 +3,7 @@ body {
     margin: auto;
     font-family: 'Open Sans', sans-serif;
 }
+
 header {
     text-align: center;
 }
@@ -12,12 +13,13 @@ header p {
     font-weight: bold;
     font-size: 0.8em;
     padding-right: 1em;
-    margin-top: -2.5em;
+    margin-top: -2em;
 }
 
 .white,
 .white a:link,
-.white a:visited {
+.white a:visited
+ {
     color: white;
 }
 
@@ -31,7 +33,7 @@ a:visited {
 }
 
 header address {
-    font-size:  0.9em;
+    font-size: 0.9em;
     font-style: italic;
 }
 
@@ -41,32 +43,33 @@ main {
 }
 
 main p {
-    text-align: justify;
-    font-family:'Roboto Condensed', sans-serif;
+    text-align: justify; 
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 main figure {
-    margin-left: 0; 
+    margin-left: 0;
     width: 100%;
 }
 
-main figure img{
+main figure img {
     border: 1px solid black;
 }
 
 #map {
     height: 360px;
     width: 100%;
-    border: 1px  solid gray;
+    border: 1px solid gray;
 }
 
-main ul{
-    list-style-type: : circle;
+main ul {
+    list-style-type: circle;
 }
 
 footer .next {
     float: right;
 }
+
 footer .back {
     float: left;
 }
@@ -75,17 +78,18 @@ footer {
     padding: 1em 0 3em 0;
 }
 
-.mr-3{
+.mr-3 {
     margin-right: 0.3em;
 }
+
 .ml-3 {
     margin-left: 0.3em;
 }
 
 @media screen and (max-width: 900px) {
-    main{
+    main {
         max-width: 90%;
-}
+    }
 }
 
 @media screen and (max-width: 1280px) {
@@ -93,4 +97,3 @@ footer {
         width: 100vw;
     }
 }
-    
