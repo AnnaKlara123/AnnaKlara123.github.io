@@ -10,7 +10,7 @@ header {
 header p {
     text-align: right;
     font-weight: bold;
-    font-size: 0,8em;
+    font-size: 0.8em;
     padding-right: 1em;
     margin-top: -2.5em;
 }
@@ -19,4 +19,13 @@ header p {
 .white a:link,
 .white a:visited {
     color: white;
+}
+
+header nav img {
+    border-radius: 50%;
+}
+
+a:link,
+a:visited {
+    color: black;
 }
