@@ -86,8 +86,9 @@ footer {
     main{
         max-width: 90%;
 }
+}
 
-@media  and (max-width: 1280px) {
+@media screen and (max-width: 1280px) {
     header img.banner {
         width: 100vw;
     }
