@@ -2,10 +2,11 @@ body {
     max-width: 1280px;
     margin: auto;
     font-family: 'Open Sans', sans-serif;
-
+}
 header {
     text-align: center;
 }
+
 header p {
     text-align: right;
     font-weight: bold;
@@ -40,7 +41,7 @@ main {
 }
 
 main p {
-    text-align: :justify;
+    text-align: justify;
     font-family:'Roboto Condensed', sans-serif;
 }
 
@@ -80,3 +81,15 @@ footer {
 .ml-3 {
     margin-left: 0.3em;
 }
+
+@media screen and (max-width: 900px) {
+    main{
+        max-width: 90%;
+}
+
+@media  and (max-width: 1280px) {
+    header img.banner {
+        width: 100vw;
+    }
+}
+    
