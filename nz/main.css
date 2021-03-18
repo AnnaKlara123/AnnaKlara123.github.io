@@ -36,5 +36,24 @@ header address {
 }
 
 main {
-    
+    max-width: 70%;
+    margin: auto;
+}
+
+main p {
+    text-align: :justify;
+}
+
+main figure {
+    margin-left: 0; 
+    width: 100%;
+}
+
+main figure img{
+    border: 1px solid black;
+}
+
+#map {
+    height: 360px;
+    width: 100%;
 }
