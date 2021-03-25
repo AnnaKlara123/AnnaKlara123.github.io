@@ -42,6 +42,16 @@ for (let entry of ROUTE) {
     }
 }
 
+nav.onchange = (evt) => {
+   let selected = evt.target.selectedIndex;
+   let options = evt.target.options;
+   let username = options[selected].value;
+   let. link = `http://${username}.github.io/nzindex.html`;
+   console.log(evt.target.options);
+   
+};
+
+
 //console.log(document.querySelector("#map"));
 
 
