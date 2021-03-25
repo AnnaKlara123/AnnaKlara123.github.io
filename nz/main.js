@@ -22,21 +22,18 @@ console.log('Navigation HTML Element: ', nav);
 ROUTE.sort((stop1, stop2) => {
     if (stop1.nr > stop2.nr) {
         return 1;
-      } else {
+    } else {
         return -1;
-      }
-    });
-    
+    }
+});
+
 for (let entry of ROUTE) {
     //  console.log(entry);
-    nav.innerHTML += `
-    <option value="${entry.user}"> ${entry.nr}: ${entry.name} </option>
-    `;
 
-    let mrk = L.marker([entry.lat, entry.lng]).addTo(map);
-    mrk.bindPopup(`
-    <h4>entry ${entry.nr}: ${entry.name}<h4>
-    <p><a href="${entry.wikipedia}"><i class="fas fa-external-link-alt mr-3"></i>Read about stop in Wikipedia</a></p>
+nav.innerHTML += `<option value="${entry.user}">Stop ${entry.nr}: ${entry.name}</option>`;
+let mrk = L.marker([entry.lat, entry.lng]).addTo(map);
+mrk.bindPopup(`<h4>Stop ${entry.nr}: ${entry.name}<h4>
+<p><a href="${entry.wikipedia}"><i class="fas fa-external-link-alt mr-3"></i>Read about stop in Wikipedia</a></p>
 `);
 
     if (entry.nr == 7) {
