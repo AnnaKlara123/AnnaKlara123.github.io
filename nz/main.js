@@ -25,7 +25,7 @@ ROUTE.sort((stop1, stop2) => {
 });
 
 for (let entry of ROUTE) {
-  //  console.log(entry);
+    //  console.log(entry);
     nav.innerHTML += `
     <option value="${entry.user}"> ${entry.nr}: ${entry.name} </option>
     `;
@@ -37,21 +37,19 @@ for (let entry of ROUTE) {
 `);
 
     if (entry.nr == 7) {
-        map.setView([entry.lat,entry.lng], 13)
+        map.setView([entry.lat, entry.lng], 13)
         mrk.openPopup();
     }
 }
-
+nav.options.selectedIndex = 22 - 1;
 nav.onchange = (evt) => {
-   let selected = evt.target.selectedIndex;
-   let options = evt.target.options;
-   let username = options[selected].value;
-   let. link = `http://${username}.github.io/nzindex.html`;
-   console.log(evt.target.options);
-   
+    let selected = evt.target.selectedIndex;
+    let options = evt.target.options;
+    let username = options[selected].value;
+    let link = `https://${username}.github.io/nz/index.html`;
+    console.log(username, link);
+
+    window.location.href = link;
 };
 
-
-//console.log(document.querySelector("#map"));
-
-
+console.log(document.querySelector("#map"));
