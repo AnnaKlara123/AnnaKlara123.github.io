@@ -133,6 +133,7 @@ const ROUTE = [
         user: "csnwolf",
         wikipedia: "https://en.wikipedia.org/wiki/Wanaka"
     }, {
+        name: "Oamaru"
         nr: 5,
         lat: -45.09746,
         lng: 170.96911,
