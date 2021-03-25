@@ -1,4 +1,3 @@
-
 let stop = {
     nr: 7,
     name: "Dunedine",
@@ -9,18 +8,40 @@ let stop = {
 };
 
 const map = L.map("map", {
-    center: [ stop.lat, stop.lng],
-    zoom: 13,
+    //center: [stop.lat, stop.lng],
+    //zoom: 13,
     layers: [
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
     ]
 });
 
+let nav = (document.querySelector("#navigation"));
+console.log(nav);
+//console.log(nav)
+
+//console.log(ROUTE);
+ROUTE.sort((stop1, stop2) => {
+    return stop1.nr > stop2.nr
+});
+
+for (let entry of ROUTE) {
+  //  console.log(entry);
+    nav.innerHTML += `
+    <option value="${entry.user}"> ${entry.nr}: ${entry.name} </option>
+    `;
+
+    let mrk = L.marker([entry.lat, entry.lng]).addTo(map);
+    mrk.bindPopup(`
+    <h4>entry ${entry.nr}: ${entry.name}<h4>
+    <p><a href="${entry.wikipedia}"><i class="fas fa-external-link-alt mr-3"></i>Read about stop in Wikipedia</a></p>
+`);
+
+    if (entry.nr == 7) {
+        map.setView([entry.lat,entry.lng], 13)
+        mrk.openPopup();
+    }
+}
+
+//console.log(document.querySelector("#map"));
 
 
-let mrk = L.marker([ stop.lat, stop.lng ]).addTo(map);
-mrk.bindPopup(`<h4>Stop ${stop.nr}: ${stop.name}<h4>
-<p><a href="${stop.wikipedia}"><i class="fas fa-external-link-alt mr-3"></i>Read about stop in Wikipedia</a></p>
-`).openPopup();
-
-console.log(document.querySelector("#map"));
