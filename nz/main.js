@@ -1,8 +1,8 @@
 let stop = {
     nr: 7,
     name: "Dunedine",
-    lat: -45.874167,
-    lng: 170.503611,
+    lat: -45.87,
+    lng: 170.50,
     user: "AnnaKlara123",
     wikipedia: "https://en.wikipedia.org/wiki/Dunedin"
 };
@@ -11,15 +11,14 @@ const map = L.map("map", {
     //center: [stop.lat, stop.lng],
     //zoom: 13,
     layers: [
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
+        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`)
     ]
 });
 
-let nav = (document.querySelector("#navigation"));
-console.log(nav);
-//console.log(nav)
-
+let nav = document.querySelector(`#navigation`);
+console.log('Navigation HTML Element: ', nav);
 //console.log(ROUTE);
+
 ROUTE.sort((stop1, stop2) => {
     return stop1.nr > stop2.nr
 });
