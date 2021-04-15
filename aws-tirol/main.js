@@ -31,7 +31,7 @@ layerControl.addOverlay(snowLayer, "Schneehöhen");
 snowLayer.addTo(map);
 
 //Windlayer hinzufügen
-let.windLayer = L.featureGroup();
+let windLayer = L.featureGroup();
 layerControl.addOverlay(windLayer, "Windgeschwiendigkeit");
 windLayer.addTo(map)
 
@@ -79,6 +79,7 @@ fetch(awsUrl)
                 snowMarker.addTo(snowLayer);
             }
 
+            marker.addTo(awsLayer);
             if (station.properties.WG) {
                 let highlightClass = '';
                 if (station.properties.WG > 1) {
