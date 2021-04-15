@@ -32,6 +32,7 @@ fetch(awsUrl)
                 [station.geometry.coordinates[1],
                 station.geometry.coordinates[0]]
                 );
-            marker.addTo(map);
+            marker.bindPopup(`<h3>${station.properties.name}</h3>`);
+                marker.addTo(map);
         }
     });
