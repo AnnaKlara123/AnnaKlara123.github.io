@@ -41,6 +41,7 @@ fetch(awsUrl)
             <ul>
               <li>Datum: ${formattedDate.toLocaleString("de")}</li>
               <li>Temperatur: ${station.properties.LT} C</li>
+              <li>Windgeschwindigkeit: ${station.properties.WD}Knoten </li>
             </ul>
             `);
             marker.addTo(awsLayer);
