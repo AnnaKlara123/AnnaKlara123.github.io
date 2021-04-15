@@ -30,6 +30,10 @@ let snowLayer = L.featureGroup();
 layerControl.addOverlay(snowLayer, "Schneehöhen");
 snowLayer.addTo(map);
 
+//Windlayer hinzufügen
+let.windLayer = L.featureGroup();
+layerControl.addOverlay(windLayer, "Windgeschwiendigkeit");
+windLayer.addTo(map)
 
 fetch(awsUrl)
     .then(response => response.json())
@@ -73,6 +77,26 @@ fetch(awsUrl)
                     icon: snowIcon
                 });
                 snowMarker.addTo(snowLayer);
+            }
+
+            if (station.properties.WG) {
+                let highlightClass = '';
+                if (station.properties.WG > 1) {
+                    highlightClass = 'wind-1';
+                }
+                if (station.properties.WG > 2) {
+                    highlightClass = 'wind-2';
+                }
+                let windIcon = L.divIcon({
+                    html: `<div class="wind-label ${highlightClass}">${station.properties.WG}</div>`
+                })
+                let windMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: windIcon
+                });
+                windMarker.addTo(windLayer);
             }
         }
         // set map view to all stations
