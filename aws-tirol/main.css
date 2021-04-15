@@ -7,3 +7,9 @@ h2 {
     border: solid black 1px;
     margin: auto;
 }
+
+.snow-label {
+    font-size: 1.25em;
+    font-weight: bold;
+    display: 0.3em;
+}

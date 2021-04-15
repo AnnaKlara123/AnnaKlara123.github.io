@@ -24,6 +24,9 @@ let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
 let awsLayer = L.featureGroup();
 layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
 awsLayer.addTo(map);
+let. snowLayer = L.featuresGroup();
+layerControl.addOverlay(snowLayer, "SChneehöhe");
+snowLayer.addTo(map);
 
 fetch(awsUrl)
     .then(response => response.json())
@@ -49,6 +52,18 @@ fetch(awsUrl)
           <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
             `);
             marker.addTo(awsLayer);
+            if (station.properties.HS) {
+                let snowIcon = L.divIcon({
+                    html:`<div>station.properties.HS</div>`
+                })
+                let snowMarker =L.marker([
+                    station.geometry.coordinates[1]
+                    station.geometry.coordinates[0]
+                ], {
+                    icon:snowIcon
+                })
+                snowMarker.addTo(snowLayer);
+            }
         }
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
