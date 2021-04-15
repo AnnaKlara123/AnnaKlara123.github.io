@@ -1,3 +1,4 @@
+
 let basemapGray = L.tileLayer.provider('BasemapAT.grau');
 
 let map = L.map("map", {
@@ -19,16 +20,18 @@ let layerControl = L.control.layers({
 }).addTo(map);
 
 
-let.awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
+let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
+
 fetch(awsUrl)
     .then(response => response.json())
     .then(json => {
-        console.log('Daten kpnvertieren', json);
+        console.log('Daten konvertiert: ', json);
         for (station of json.features) {
             console.log('Station: ', station);
-            let marker = L.marker([station.geometry.coordinates[1],
+            let marker = L.marker(
+                [station.geometry.coordinates[1],
                 station.geometry.coordinates[0]]
                 );
-                marker.addTo(map);
+            marker.addTo(map);
         }
     });
