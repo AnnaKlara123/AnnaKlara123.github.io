@@ -35,16 +35,15 @@ fetch(awsUrl)
                 station.geometry.coordinates[1],
                 station.geometry.coordinates[0]
             ]);
-
-            let.formattedDate = new Date(station.properties.date);
+            let formattedDate = new Date(station.properties.date);
             marker.bindPopup(`
             <h3>${station.properties.name}</h3>
-            <ur> 
-                <li>Datum: ${formattedDate.toLocaleString("de")}</li>
-                <li>Temperatur: ${station.properties.LT}</li>
-            </ur>
-            marker.addTo(awsLayer);
+            <ul>
+              <li>Datum: ${formattedDate.toLocaleString("de")}</li>
+              <li>Temperatur: ${station.properties.LT} C</li>
+            </ul>
             `);
+            marker.addTo(awsLayer);
         }
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
