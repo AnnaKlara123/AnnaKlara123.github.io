@@ -5,17 +5,17 @@ let stop = {
     lng: 170.50,
     user: "AnnaKlara123",
     wikipedia: "https://en.wikipedia.org/wiki/Dunedin"
-};
+}
 
 const map = L.map("map", {
     //center: [stop.lat, stop.lng],
     //zoom: 13,
     layers: [
-        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
     ]
 });
 
-let nav = document.querySelector(`#navigation`);
+let nav = document.querySelector('#navigation');
 console.log('Navigation HTML Element: ', nav);
 //console.log(ROUTE);
 
@@ -41,7 +41,7 @@ mrk.bindPopup(`<h4>Stop ${entry.nr}: ${entry.name}<h4>
         mrk.openPopup();
     }
 }
-nav.options.selectedIndex = 22 - 1;
+nav.selectedIndex = 7 - 1;
 nav.onchange = (evt) => {
     console.log(evt.target.selectedIndex);
     let selected = evt.target.selectedIndex;
@@ -51,6 +51,6 @@ nav.onchange = (evt) => {
     let link = `https://${username}.github.io/nz/index.html`;
     window.location.href = link;
     console.log(link);
-};
+}
 
 console.log(document.querySelector("#map"));
