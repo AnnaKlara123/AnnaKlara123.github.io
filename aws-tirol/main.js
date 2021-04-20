@@ -81,12 +81,12 @@ fetch(awsUrl)
 
             marker.addTo(awsLayer);
             if (station.properties.WG) {
-                let highlightClass = '';
-                if (station.properties.WG > 1) {
-                    highlightClass = 'wind-1';
+                let windhighlightClass = '';
+                if (station.properties.WG > 10) {
+                    windhighlightClass = 'wind-10';
                 }
-                if (station.properties.WG > 2) {
-                    highlightClass = 'wind-2';
+                if (station.properties.WG > 20) {
+                    windhighlightClass = 'wind-20';
                 }
                 let windIcon = L.divIcon({
                     html: `<div class="wind-label ${highlightClass}">${station.properties.WG}</div>`
