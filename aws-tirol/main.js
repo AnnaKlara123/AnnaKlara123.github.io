@@ -1,6 +1,6 @@
-let basemapGray = L.tileLayer.provider('BasemapAT.grau');
+let basemapGray = L.tileLayer.provider('BasemapAT.grau'); //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.TileLayer/ - Used to load and display tile layers on the map, implements ILayer interface.
 
-let map = L.map("map", {
+let map = L.map("map", { // https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.Map/ -  it is used to create a map on a page and manipulate it.
     center: [47, 11],
     zoom: 9,
     layers: [
@@ -8,12 +8,12 @@ let map = L.map("map", {
     ]
 });
 
-let layerControl = L.control.layers({
+let layerControl = L.control.layers({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.Control/ - The base class for all Leaflet controls. Implements IControl interface. You can add controls to the map
     "BasemapAT.grau": basemapGray,
     "BasemapAT.orthofoto": L.tileLayer.provider('BasemapAT.orthofoto'),
     "BasemapAT.surface": L.tileLayer.provider('BasemapAT.surface'),
-    "BasemapAT.overlay+ortho": L.layerGroup([
-        L.tileLayer.provider('BasemapAT.orthofoto'),
+    "BasemapAT.overlay+ortho": L.layerGroup([ 
+        L.tileLayer.provider('BasemapAT.orthofoto'), //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.TileLayer/ - Used to load and display tile layers on the map, implements ILayer interface.
         L.tileLayer.provider('BasemapAT.overlay')
     ])
 }).addTo(map);
@@ -21,7 +21,7 @@ let layerControl = L.control.layers({
 
 let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
 
-let awsLayer = L.featureGroup();
+let awsLayer = L.featureGroup(); //https://leafletjs.com/reference-1.7.1.html#layergroup
 layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
 awsLayer.addTo(map);
 
@@ -34,6 +34,10 @@ snowLayer.addTo(map);
 let windLayer = L.featureGroup();
 layerControl.addOverlay(windLayer, "Windgeschwiendigkeit");
 windLayer.addTo(map)
+
+//Lufttemperatur hinzufügen 
+let AirLayer = L.featureGroup();
+
 
 fetch(awsUrl)
     .then(response => response.json())
