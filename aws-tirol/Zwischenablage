@@ -1,0 +1,22 @@
+
+
+            marker.addTo(awsLayer);
+            if (station.properties.LT) {
+                let AirTemphighlightClass = '';
+                if (station.properties.LT > 10) {
+                    AirTemphighlightClass = 'Lufttemp-10';
+                }
+                if (station.properties.LT > 20) {
+                    AirTemphighlightClass = 'Lufttemp-20';
+                }
+                let AirTempIcon = L.divIcon({
+                    html: `<div class="Air-label ${highlightClass}">${station.properties.LT}</div>`
+                })
+                let AirTempMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: AirTempIcon
+                });
+                AirTempMarker.addTo(ALayer);
+            }
