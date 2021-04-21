@@ -86,47 +86,7 @@ fetch(awsUrl)
                 snowMarker.addTo(snowLayer);
             }
 
-            marker.addTo(awsLayer);
-            if (station.properties.WG) {
-                let windhighlightClass = '';
-                if (station.properties.WG > 10) {
-                    windhighlightClass = 'wind-10';
-                }
-                if (station.properties.WG > 20) {
-                    windhighlightClass = 'wind-20';
-                }
-                let windIcon = L.divIcon({
-                    html: `<div class="wind-label ${highlightClass}">${station.properties.WG}</div>`
-                })
-                let windMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: windIcon
-                });
-                windMarker.addTo(windLayer);
-            }
-
-            marker.addTo(awsLayer);
-            if (station.properties.LT) {
-                let AirTemphighlightClass = '';
-                if (station.properties.LT > 10) {
-                    AirTemphighlightClass = 'Lufttemp-10';
-                }
-                if (station.properties.LT > 20) {
-                    AirTemphighlightClass = 'Lufttemp-20';
-                }
-                let AirTempIcon = L.divIcon({
-                    html: `<div class="Air-label ${highlightClass}">${station.properties.LT}</div>`
-                })
-                let AirTempMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: AirTempIcon
-                });
-                AirTempMarker.addTo(AirLayer);
-            }
+          
         }
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
