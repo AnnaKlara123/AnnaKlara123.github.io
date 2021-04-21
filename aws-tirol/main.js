@@ -111,21 +111,21 @@ fetch(awsUrl)
             if (station.properties.LT) {
                 let AirTemphighlightClass = '';
                 if (station.properties.LT > 10) {
-                    windhighlightClass = 'Lufttemp-10';
+                    AirTemphighlightClass = 'Lufttemp-10';
                 }
-                if (station.properties.WG > 20) {
-                    windhighlightClass = 'Lufttemp-20';
+                if (station.properties.LT > 20) {
+                    AirTemphighlightClass = 'Lufttemp-20';
                 }
-                let AirtempIcon = L.divIcon({
-                    html: `<div class="wind-label ${highlightClass}">${station.properties.WG}</div>`
+                let AirTempIcon = L.divIcon({
+                    html: `<div class="Air-label ${highlightClass}">${station.properties.LT}</div>`
                 })
-                let AirtempMarker = L.marker([
+                let AirTempMarker = L.marker([
                     station.geometry.coordinates[1],
                     station.geometry.coordinates[0]
                 ], {
-                    icon: AirtempIcon
+                    icon: AirTempIcon
                 });
-                AirTempMarker.addTo(windLayer);
+                AirTempMarker.addTo(AirLayer);
             }
         }
         // set map view to all stations
