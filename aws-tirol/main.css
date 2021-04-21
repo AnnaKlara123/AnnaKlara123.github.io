@@ -22,6 +22,14 @@ h2 {
     -1px -1px 0 white, 
 }
 
+.snow-100 {
+    background-color: blue;
+}
+
+.snow-200 {
+    background-color: red;
+}
+
 
  .snow-1to10 {
      background-color: #ffffb2;
@@ -66,7 +74,7 @@ h2 {
 }
 
 .Air-label {
-    font-size: 1.25em;
+    font-size: 1.25em
     font-weight: bold;
     display: inline;
     padding: 0.3em;

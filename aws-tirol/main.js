@@ -65,42 +65,31 @@ fetch(awsUrl)
           </ul>
           <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
             `);
-            marker.addTo(awsLayer);
-            if (station.properties.HS) {
-                let highlightClass = '';
-            
-                if (station.properties.HS <= 10)
-                    highlightClass = 'snow-1to10';
-                }
-                if (station.properties.HS <= 25) {
-                    highlightClass = "snow-10to25"
-                }
-                if (station.properties.HS <= 50) {
-                    highlightClass = "snow-26to50"
-                }
-                if (station.properties.HS <= 100) {
-                    highlightClass = "snow-51to100"
-                }
-                if (station.properties.HS <= 200) {
-                    highlightClass = "snow-101to200"
-                }
-                if (station.properties.HS > 200) {
-                    highlightClass = "snow-201to300"
-                }
+          
+           // Schneehöhenlayer hizufüen 
+           marker.addTo(awsLayer);
+           if (station.properties.HS) {
+               let highlightClass = '';
+               if (station.properties.HS > 100) {
+                   highlightClass = 'snow-100';
+               }
+               if (station.properties.HS > 200) {
+                   highlightClass = 'snow-200';
+               }
+               let snowIcon = L.divIcon({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.DivIcon/ - Represents a lightweight icon for markers that uses a simple div element instead of an image.
+                   html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
+               })
+               let snowMarker = L.marker([
+                   station.geometry.coordinates[1],
+                   station.geometry.coordinates[0]
+               ], {
+                   icon: snowIcon
+               });
+               snowMarker.addTo(snowLayer);
+           }
 
-                let snowIcon = L.divIcon({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.DivIcon/ - Represents a lightweight icon for markers that uses a simple div element instead of an image.
-                    html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
-                })
-                let snowMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: snowIcon
-                });
-                snowMarker.addTo(snowLayer);
-            }
 
-            // marker.addTo(awsLayer); - nicht nötig?
+            // Windgeschwindigkeit Layer hinzufügen 
             if (station.properties.WG) {
                 let WindHighlightClass = '';
                 if (station.properties.WG > 10) {
@@ -121,7 +110,32 @@ fetch(awsUrl)
                 windMarker.addTo(windLayer);
             } 
            
+     // Lufttemperatur Layer hinzufügen 
      
+     marker.addTo(awsLayer);
+     if (station.properties.LT) {
+         let AirhighlightClass = '';
+         if (station.properties.LT < 0){
+             AirhighlightClass = 'Air-neg';
+         }
+         if (station.properties.LT === 0){
+             AirhighlightClass = 'Air-null';
+         }
+         if (station.properties.LT > 0) {
+             AirhighlightClass = 'Air-pos';
+         }
+         let AirIcon = L.divIcon ({
+             html: `<div class="Air-lable ${AirhighlightClass}">${station.properties.LT}</div>`
+         })
+         let AirMarker = L.marker ([
+             station.geometry.coordinates[1],
+             station.geometry.coordinates[0]
+         ], {
+             icon: AirIcon
+         });
+         AirMarker.addTo(AirLayer);
+     }
+
         }
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
