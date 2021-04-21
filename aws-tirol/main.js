@@ -106,27 +106,7 @@ fetch(awsUrl)
                 });
                 windMarker.addTo(windLayer);
             }
-            // Air Layer
-            if (station.properties.LT) {
-                let AirHighlightClass = '';
-                if (station.properties.LT <= 1) {
-                    AirHighlightClass = 'Air-neg';
-                }
-                if (station.properties.LT > 1) {
-                    AirHighlightClass = 'Air-pos';
-                }
-                let AirIcon = L.divIcon({
-                    html: `<div class="Air-label ${AirHighlightClass}">${station.properties.LT}</div>`,
-                });
-                let AirMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: AirIcon
-                });
-                AirMarker.addTo(Layer);
-            }
-            
+     
         }
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
