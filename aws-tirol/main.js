@@ -86,7 +86,47 @@ fetch(awsUrl)
                 snowMarker.addTo(snowLayer);
             }
 
-          
+            // marker.addTo(awsLayer); - nicht nötig?
+            if (station.properties.WG) {
+                let WindHighlightClass = '';
+                if (station.properties.WG > 10) {
+                    WindHighlightClass = 'wind-10';
+                }
+                if (station.properties.WG > 20) {
+                    WindHighlightClass = 'wind-20';
+                }
+                let windIcon = L.divIcon({
+                    html: `<div class="wind-label ${WindHighlightClass}">${station.properties.WG}</div>`,
+                });
+                let windMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: windIcon
+                });
+                windMarker.addTo(windLayer);
+            }
+            // Air Layer
+            if (station.properties.LT) {
+                let AirHighlightClass = '';
+                if (station.properties.LT <= 1) {
+                    AirHighlightClass = 'Air-neg';
+                }
+                if (station.properties.LT > 1) {
+                    AirHighlightClass = 'Air-pos';
+                }
+                let AirIcon = L.divIcon({
+                    html: `<div class="Air-label ${AirHighlightClass}">${station.properties.LT}</div>`,
+                });
+                let AirMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: AirIcon
+                });
+                AirMarker.addTo(Layer);
+            }
+            
         }
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());

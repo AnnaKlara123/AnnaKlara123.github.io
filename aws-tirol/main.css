@@ -66,10 +66,10 @@ h2 {
     -1px -1px 0 white, 
 }
 
-.Air-10 {
-    background-color: green;
+.Air-neg {
+    background-color: blue;
 }
 
-.Air-20 {
-    background-color: purple;
+.Air-pos {
+    background-color: green
 }
