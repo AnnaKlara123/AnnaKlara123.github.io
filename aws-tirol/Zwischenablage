@@ -25,10 +25,14 @@
                 // Air Layer
             if (station.properties.LT) {
                 let AirHighlightClass = '';
-                if (station.properties.LT <= 1) {
+                if (station.properties.LT <0) {
                     AirHighlightClass = 'Air-neg';
                 }
-                if (station.properties.LT > 1) {
+
+                if (station.properties.LT === 0) {
+                    AirHighlightClass = 'Air-null';
+
+                if (station.properties.LT > 0) {
                     AirHighlightClass = 'Air-pos';
                 }
                 let AirIcon = L.divIcon({
