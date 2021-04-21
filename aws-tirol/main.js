@@ -10,10 +10,10 @@ let map = L.map("map", { // https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leafle
 
 let layerControl = L.control.layers({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.Control/ - The base class for all Leaflet controls. Implements IControl interface. You can add controls to the map
     "BasemapAT.grau": basemapGray,
-    "BasemapAT.orthofoto": L.tileLayer.provider('BasemapAT.orthofoto'),
+    "BasemapAT.orthofoto": L.tileLayer.provider('BasemapAT.orthofoto'), //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.TileLayer/ - Used to load and display tile layers on the map, implements ILayer interface.
     "BasemapAT.surface": L.tileLayer.provider('BasemapAT.surface'),
-    "BasemapAT.overlay+ortho": L.layerGroup([ 
-        L.tileLayer.provider('BasemapAT.orthofoto'), //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.TileLayer/ - Used to load and display tile layers on the map, implements ILayer interface.
+    "BasemapAT.overlay+ortho": L.layerGroup([ // Used to group several layers and handle them as one. If you add it to the map, any layers added or removed from the group will be added/removed on the map as well. Extends Layer. - Create a layer group, optionally given an initial set of layers and an options object.
+        L.tileLayer.provider('BasemapAT.orthofoto'), 
         L.tileLayer.provider('BasemapAT.overlay')
     ])
 }).addTo(map);
@@ -48,7 +48,7 @@ fetch(awsUrl)
         console.log('Daten konvertiert: ', json);
         for (station of json.features) {
             // console.log('Station: ', station);
-            let marker = L.marker([
+            let marker = L.marker([ // http://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.Marker/%20Used%20to%20put%20markers%20on%20the%20map. - 
                 station.geometry.coordinates[1],
                 station.geometry.coordinates[0]
             ]);
@@ -74,7 +74,7 @@ fetch(awsUrl)
                 if (station.properties.HS > 200) {
                     highlightClass = 'snow-200';
                 }
-                let snowIcon = L.divIcon({
+                let snowIcon = L.divIcon({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.DivIcon/ - Represents a lightweight icon for markers that uses a simple div element instead of an image.
                     html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
                 })
                 let snowMarker = L.marker([
