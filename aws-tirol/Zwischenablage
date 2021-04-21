@@ -20,7 +20,41 @@
             }
 
 
+  // Schneehöhenlayer hizufüen  (Mit Farbskalar, aber noch mit Fehler!)
+            marker.addTo(awsLayer);
+            if (station.properties.HS) {
+                let highlightClass = '';
+            
+                if (station.properties.HS <= 10) {
+                    highlightClass = 'snow-1to10';
+                }
+                if (station.properties.HS <= 25) {
+                    highlightClass = "snow-10to25"
+                }
+                if (station.properties.HS <= 50) {
+                    highlightClass = "snow-26to50"
+                }
+                if (station.properties.HS <= 100) {
+                    highlightClass = "snow-51to100"
+                }
+                if (station.properties.HS <= 200) {
+                    highlightClass = "snow-101to200"
+                } 
+                if (station.properties.HS > 200) {
+                    highlightClass = "snow-201to300"
+                }
 
+                let snowIcon = L.divIcon({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.DivIcon/ - Represents a lightweight icon for markers that uses a simple div element instead of an image.
+                    html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
+                })
+                let snowMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: snowIcon
+                });
+                snowMarker.addTo(snowLayer);
+            }
 
                 // Air Layer
             if (station.properties.LT) {
@@ -49,10 +83,22 @@
             
 
 
-.snow-100 {
-    background-color: blue;
-}
 
-.snow-200 {
-    background-color: red;
-}
+if (station.properties.HS <= 10) {
+                    highlightClass = 'snow-1to10';
+                }
+                if (station.properties.HS <= 25) {
+                    highlightClass = "snow-10to25"
+                }
+                if (station.properties.HS <= 50) {
+                    highlightClass = "snow-26to50"
+                }
+                if (station.properties.HS <= 100) {
+                    highlightClass = "snow-51to100"
+                }
+                if (station.properties.HS = 200) {
+                    highlightClass = "snow-101to200"
+                }
+                if (station.properties.HS > 200) {
+                    highlightClass = "snow-201to300"
+                }
