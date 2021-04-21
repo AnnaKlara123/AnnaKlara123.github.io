@@ -22,13 +22,26 @@ h2 {
     -1px -1px 0 white, 
 }
 
-.snow-100 {
-    background-color: blue;
-}
 
-.snow-200 {
-    background-color: red;
+ .snow-1to10 {
+     background-color: #ffffb2;
+ }
+ .snow-10to25 {
+    background-color: #b0ffbc;
+ } 
+ .snow-26to50 {
+    background-color: #8cffff;
+ }
+ .snow-51to100 {
+     background-color: #19cdff;
+ }
+ .snow-101to200 {
+     background-color: #1982ff;
+ }
+ .snow-201to300 {
+    background-color: #0f5abe;
 }
+ 
 
 .wind-label {
     font-size: 1.25em;
@@ -68,6 +81,10 @@ h2 {
 
 .Air-neg {
     background-color: blue;
+}
+
+.Air-null {
+    background-color: #8cffff ;
 }
 
 .Air-pos {

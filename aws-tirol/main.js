@@ -58,7 +58,7 @@ fetch(awsUrl)
             <ul>
             <li>Datum: ${formattedDate.toLocaleString("de")}</li>
             <li>Seehöhe: ${station.geometry.coordinates[2]} m</li>
-            <li>Temperatur: ${station.properties.LT} C</li>
+            <li>Temperatur: ${station.properties.LT ||'?'} °C</li>
             <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
             <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>
             <li>Windgeschwindrichtung: ${station.properties.WR || '?'}</li>
@@ -68,12 +68,26 @@ fetch(awsUrl)
             marker.addTo(awsLayer);
             if (station.properties.HS) {
                 let highlightClass = '';
-                if (station.properties.HS > 100) {
-                    highlightClass = 'snow-100';
+            
+                if (station.properties.HS <= 10)
+                    highlightClass = 'snow-1to10';
+                }
+                if (station.properties.HS <= 25) {
+                    highlightClass = "snow-10to25"
+                }
+                if (station.properties.HS <= 50) {
+                    highlightClass = "snow-26to50"
+                }
+                if (station.properties.HS <= 100) {
+                    highlightClass = "snow-51to100"
+                }
+                if (station.properties.HS <= 200) {
+                    highlightClass = "snow-101to200"
                 }
                 if (station.properties.HS > 200) {
-                    highlightClass = 'snow-200';
+                    highlightClass = "snow-201to300"
                 }
+
                 let snowIcon = L.divIcon({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.DivIcon/ - Represents a lightweight icon for markers that uses a simple div element instead of an image.
                     html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
                 })
@@ -105,7 +119,8 @@ fetch(awsUrl)
                     icon: windIcon
                 });
                 windMarker.addTo(windLayer);
-            }
+            } 
+           
      
         }
         // set map view to all stations
