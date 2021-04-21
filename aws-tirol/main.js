@@ -111,7 +111,7 @@ fetch(awsUrl)
             } 
            
      // Lufttemperatur Layer hinzufügen 
-     
+
      marker.addTo(awsLayer);
      if (station.properties.LT) {
          let AirhighlightClass = '';
@@ -125,7 +125,7 @@ fetch(awsUrl)
              AirhighlightClass = 'Air-pos';
          }
          let AirIcon = L.divIcon ({
-             html: `<div class="Air-lable ${AirhighlightClass}">${station.properties.LT}</div>`
+             html: `<div class="Air-label ${AirhighlightClass}">${station.properties.LT}</div>`
          })
          let AirMarker = L.marker ([
              station.geometry.coordinates[1],
