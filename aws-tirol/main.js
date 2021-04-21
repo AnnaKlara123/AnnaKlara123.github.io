@@ -106,6 +106,27 @@ fetch(awsUrl)
                 });
                 windMarker.addTo(windLayer);
             }
+
+            marker.addTo(awsLayer);
+            if (station.properties.LT) {
+                let AirTemphighlightClass = '';
+                if (station.properties.LT > 10) {
+                    windhighlightClass = 'Lufttemp-10';
+                }
+                if (station.properties.WG > 20) {
+                    windhighlightClass = 'Lufttemp-20';
+                }
+                let AirtempIcon = L.divIcon({
+                    html: `<div class="wind-label ${highlightClass}">${station.properties.WG}</div>`
+                })
+                let AirtempMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ], {
+                    icon: AirtempIcon
+                });
+                AirTempMarker.addTo(windLayer);
+            }
         }
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
