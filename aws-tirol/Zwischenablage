@@ -43,3 +43,12 @@
                 AirMarker.addTo(Layer);
             }
             
+
+
+.snow-100 {
+    background-color: blue;
+}
+
+.snow-200 {
+    background-color: red;
+}
