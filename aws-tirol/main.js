@@ -11,7 +11,7 @@ let map = L.map("map", { // https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leafle
 let overlays = {
     stations: L.featureGroup(), // hier landen Wetterstationen
     temperature: L.featureGroup(),
-    snowhight: L.featureGroup(),
+    snowheight: L.featureGroup(),
     windspeed: L.featureGroup(),
     winddirection: L.featureGroup(),
 };
@@ -28,7 +28,7 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
     ])
 }, {"Wetterstationen Tirol": overlays.stations,
     "Temperatur (C°)": overlays.temperature,
-    "Schneehöhe (cm)": overlays.snowhight,
+    "Schneehöhe (cm)": overlays.snowheight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed,
     "Windrichtung ": overlays.winddirection,
     } , {
@@ -61,7 +61,8 @@ let newLabel = (coords, options) => {
         className: "text-label"
     })
     let marker = L.marker([coords[1], coords[0]], {
-        icon: label
+        icon: label,
+        title: `${options.station} (${coords[2]}m)`
     });
     return marker;
 };
@@ -101,22 +102,28 @@ fetch(awsUrl)
            marker.addTo(overlays.stations);
            if (typeof station.properties.HS == "number") {
                let marker = newLabel(station.geometry.coordinates, {
-                   value: station.properties.HS, 
-                   colors: COLORS.snowheight
+                   value: station.properties.HS.toFixed(0), 
+                   colors: COLORS.snowheight,
+                   station: station.properties.name
                });
                marker.addTo(overlays.snowheight);
            }
+           // Windgeschwiendigkeit
+
            if (typeof station.properties.WG == "number") {
                let marker = newLabel(station.geometry.coordinates, {
-                   value: station.properties.WG,
-                   colors: COLORS.windspeed
+                   value: station.properties.WG.toFixed(0),
+                   colors: COLORS.windspeed,
+                   station: station.properties.name
                });
                marker.addTo(overlays.windspeed);
            }
+           // TEmperatr
            if (typeof station.properties.LT == "number") {
                let marker = newLabel(station.geometry.coordinates, {
-                   value: station.properties.LT,
-                   colors: COLORS.temperature
+                   value: station.properties.LT.toFixed(1),
+                   colors: COLORS.temperature,
+                   station: station.properties.name
                });
                marker.addTo(overlays.temperature);
            }
