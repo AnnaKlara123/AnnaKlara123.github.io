@@ -44,12 +44,12 @@ L.control.scale({
 ).addTo(map);
 
 let newLabel = (coords, options) => {
-    let. label = L.divIcon({
+    let label = L.divIcon({
         html: `<div>${options.value}</div>`,
         className: "text-label"
     })
     let marker = L.marker([coords[1], coords[0]], {
-        icon:label
+        icon: label
     });
     return marker;
 };
@@ -85,28 +85,14 @@ fetch(awsUrl)
             `);
           
            // Schneehöhenlayer hizufüen 
+         
            marker.addTo(overlays.stations);
-           if(typeof station.properties.HS =="number") 
-           if (station.properties.HS) {
-               let highlightClass = '';
-               if (station.properties.HS > 100) {
-                   highlightClass = 'snow-100';
-               }
-               if (station.properties.HS > 200) {
-                   highlightClass = 'snow-200';
-               }
-               let snowIcon = L.divIcon({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.DivIcon/ - Represents a lightweight icon for markers that uses a simple div element instead of an image.
-                   html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
-               })
-               let snowMarker = L.marker([
-                   station.geometry.coordinates[1],
-                   station.geometry.coordinates[0]
-               ], {
-                   icon: snowIcon
-               });
-               snowMarker.addTo(overlays.snowhight);
-           }
-
+           if (typeof station.properties.HS == "number") {
+            let marker = newLabel(station.geometry.coordinates, {
+                value: station.properties.HS
+            });
+            marker.addTo(overlays.snowhight);
+        }
 
             // Windgeschwindigkeit Layer hinzufügen 
             if(typeof station.properties.WG =="number")
