@@ -43,6 +43,10 @@ L.control.scale({
 }    
 ).addTo(map);
 
+let getColor = (value, colorRamp) => {
+    
+}
+
 let newLabel = (coords, options) => {
     let label = L.divIcon({
         html: `<div>${options.value}</div>`,
@@ -86,48 +90,27 @@ fetch(awsUrl)
           
            // Schneehöhenlayer hizufüen 
          
-           marker.addTo(overlays.stations);
+           arker.addTo(overlays.stations);
            if (typeof station.properties.HS == "number") {
-            let marker = newLabel(station.geometry.coordinates, {
-                value: station.properties.HS
-            });
-            marker.addTo(overlays.snowhight);
-        }
-
-            // Windgeschwindigkeit Layer hinzufügen 
-            if(typeof station.properties.WG =="number")
-     
-            if (station.properties.WG) {
-                let WindHighlightClass = '';
-                if (station.properties.WG > 10) {
-                    WindHighlightClass = 'wind-10';
-                }
-                if (station.properties.WG > 20) {
-                    WindHighlightClass = 'wind-20';
-                }
-                let windIcon = L.divIcon({
-                    html: `<div class="wind-label ${WindHighlightClass}">${station.properties.WG}</div>`,
-                });
-                let windMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: windIcon
-                });
-                windMarker.addTo(overlays.windspeed);
-            } 
-           
-     // Lufttemperatur Layer hinzufügen 
-
-if (typeof station.properties.LT == "number") {
-    let marker = newLabel(station.geometry.coordinates, {
-        value: station.properties.LT
-    });
-    marker.addTo(overlays.temperature);
-}
-}
-// set map view to all stations
-map.fitBounds(overlays.stations.getBounds());
-});
-
+               let marker = newLabel(station.geometry.coordinates, {
+                   value: station.properties.HS
+               });
+               marker.addTo(overlays.snowheight);
+           }
+           if (typeof station.properties.WG == "number") {
+               let marker = newLabel(station.geometry.coordinates, {
+                   value: station.properties.WG
+               });
+               marker.addTo(overlays.windspeed);
+           }
+           if (typeof station.properties.LT == "number") {
+               let marker = newLabel(station.geometry.coordinates, {
+                   value: station.properties.LT
+               });
+               marker.addTo(overlays.temperature);
+           }
+       }
+       // set map view to all stations
+       map.fitBounds(overlays.stations.getBounds());
+   });
 
