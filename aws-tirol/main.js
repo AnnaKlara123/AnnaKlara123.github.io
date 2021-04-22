@@ -118,7 +118,7 @@ fetch(awsUrl)
                });
                marker.addTo(overlays.windspeed);
            }
-           // TEmperatr
+           // Temperatur
            if (typeof station.properties.LT == "number") {
                let marker = newLabel(station.geometry.coordinates, {
                    value: station.properties.LT.toFixed(1),
