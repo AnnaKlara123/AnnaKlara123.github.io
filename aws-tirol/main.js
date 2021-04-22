@@ -8,7 +8,17 @@ let map = L.map("map", { // https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leafle
     ]
 });
 
-let layerControl = L.control.layers({ //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.Control/ - The base class for all Leaflet controls. Implements IControl interface. You can add controls to the map
+let overlays = {
+    stations: L.featureGroup(), // hier landen Wetterstationen
+    temperature: L.featureGroup(),
+    snowhight: L.featureGroup(),
+    windspeed: L.featureGroup(),
+    winddirection: L.featureGroup(),
+};
+
+
+
+let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.html#control-layers - The base class for all Leaflet controls. Implements IControl interface. You can add controls to the map
     "BasemapAT.grau": basemapGray,
     "BasemapAT.orthofoto": L.tileLayer.provider('BasemapAT.orthofoto'), //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.TileLayer/ - Used to load and display tile layers on the map, implements ILayer interface.
     "BasemapAT.surface": L.tileLayer.provider('BasemapAT.surface'),
@@ -16,7 +26,13 @@ let layerControl = L.control.layers({ //https://docs.eegeo.com/eegeo.js/v0.1.780
         L.tileLayer.provider('BasemapAT.orthofoto'), 
         L.tileLayer.provider('BasemapAT.overlay')
     ])
-}).addTo(map);
+}, {"Wetterstationen Tirol": overlays.stations,
+    "Temperatur (C°)": overlays.temperature,
+    "Schneehöhe (cm)": overlays.snowhight,
+    "Windgeschwindigkeit (km/h)": overlays.windspeed,
+    "Windrichtung ": overlays.winddirection
+    }
+).addTo(map);
 
 
 let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
@@ -85,7 +101,7 @@ fetch(awsUrl)
                ], {
                    icon: snowIcon
                });
-               snowMarker.addTo(snowLayer);
+               snowMarker.addTo(overlays.snowhight);
            }
 
 
@@ -107,7 +123,7 @@ fetch(awsUrl)
                 ], {
                     icon: windIcon
                 });
-                windMarker.addTo(windLayer);
+                windMarker.addTo(overlays.windspeed);
             } 
            
      // Lufttemperatur Layer hinzufügen 
@@ -133,10 +149,10 @@ fetch(awsUrl)
          ], {
              icon: AirIcon
          });
-         AirMarker.addTo(AirLayer);
+         AirMarker.addTo(overlays.temperature);
      }
 
         }
         // set map view to all stations
-        map.fitBounds(awsLayer.getBounds());
+        map.fitBounds(overlays.stations.getBounds());
     });
