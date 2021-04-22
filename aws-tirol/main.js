@@ -128,39 +128,15 @@ fetch(awsUrl)
            
      // Lufttemperatur Layer hinzufügen 
 
-     if (typeof station.properties.LT == "number") {
-        let marker = newLabel(station.geometry.coordinates, {
-            value: station.properties.LT
-        });
-        marker.addTo(overlays.temperature);
-    }
-}
-     
-     if (station.properties.LT) {
-         let AirhighlightClass = '';
-         if (station.properties.LT < 0){
-             AirhighlightClass = 'Air-neg';
-         }
-         if (station.properties.LT === 0){
-             AirhighlightClass = 'Air-null';
-         }
-         if (station.properties.LT > 0) {
-             AirhighlightClass = 'Air-pos';
-         }
-         let AirIcon = L.divIcon ({
-             html: `<div class="Air-label ${AirhighlightClass}">${station.properties.LT}</div>`
-         })
-         let AirMarker = L.marker ([
-             station.geometry.coordinates[1],
-             station.geometry.coordinates[0]
-         ], {
-             icon: AirIcon
-         });
-         AirMarker.addTo(overlays.temperature);
-     }
-
-        }
-        // set map view to all stations
-        map.fitBounds(overlays.stations.getBounds());
+if (typeof station.properties.LT == "number") {
+    let marker = newLabel(station.geometry.coordinates, {
+        value: station.properties.LT
     });
+    marker.addTo(overlays.temperature);
+}
+}
+// set map view to all stations
+map.fitBounds(overlays.stations.getBounds());
+});
+
 
