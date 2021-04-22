@@ -30,7 +30,9 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
     "Temperatur (C°)": overlays.temperature,
     "Schneehöhe (cm)": overlays.snowhight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed,
-    "Windrichtung ": overlays.winddirection
+    "Windrichtung ": overlays.winddirection,
+    } , {
+        collapsed:false
     }
 ).addTo(map);
 
@@ -63,7 +65,7 @@ fetch(awsUrl)
             `);
           
            // Schneehöhenlayer hizufüen 
-           marker.addTo(awsLayer);
+           marker.addTo(overlays.stations);
            if (station.properties.HS) {
                let highlightClass = '';
                if (station.properties.HS > 100) {
