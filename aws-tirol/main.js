@@ -37,26 +37,6 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
 
 let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
 
-let awsLayer = L.featureGroup(); //https://leafletjs.com/reference-1.7.1.html#layergroup - Extended LayerGroup that makes it easier to do the same thing to all its member layers:
-layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
-awsLayer.addTo(map);
-
-// awsLayer.addTo(map);
-let snowLayer = L.featureGroup();
-layerControl.addOverlay(snowLayer, "Schneehöhen");
-snowLayer.addTo(map);
-
-//Windlayer hinzufügen
-let windLayer = L.featureGroup();
-layerControl.addOverlay(windLayer, "Windgeschwiendigkeit");
-windLayer.addTo(map)
-
-//Lufttemperatur hinzufügen 
-let AirLayer = L.featureGroup();
-layerControl.addOverlay(AirLayer, "Lufttemperatur");
-AirLayer.addTo(map)
-
-
 
 fetch(awsUrl)
     .then(response => response.json())
