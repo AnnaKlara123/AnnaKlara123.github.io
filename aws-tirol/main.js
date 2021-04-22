@@ -37,6 +37,13 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
 ).addTo(map);
 
 
+// Maßstab einbauen 
+L.control.scale({
+    imperial: false
+}    
+).addTo(map);
+
+
 let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
 
 
