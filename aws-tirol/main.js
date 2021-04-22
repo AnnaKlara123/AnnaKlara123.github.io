@@ -44,11 +44,12 @@ L.control.scale({
 ).addTo(map);
 
 let newLabel = (coords, options) => {
-    console.log("Koordinaten coords: ", coords)
-    console.log ("Optionsobjekt: ", options);    // den Label zurückgeben
-    //Lable erstellen
+    console.log("Koordinaten coords: ", coords);
+    console.log("Optionsobjekt:", options);
+    let marker = L.marker([coords[1], coords[0]]);
+    console.log("Marker:", marker);
+    return marker;
 };
-//
 
 
 let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
@@ -127,12 +128,14 @@ fetch(awsUrl)
            
      // Lufttemperatur Layer hinzufügen 
 
-     if(typeof station.properties.LT =="number") {
-         newLabel(station.geometry.windspeed), {
-             value:station.properties.LT
-         });
+     if (typeof station.properties.LT == "number") {
+        let marker = newLabel(station.geometry.coordinates, {
+            value: station.properties.LT
+        });
+        marker.addTo(overlays.temperature);
+    }
+}
      
-
      if (station.properties.LT) {
          let AirhighlightClass = '';
          if (station.properties.LT < 0){
