@@ -14,6 +14,7 @@ let overlays = {
     snowheight: L.featureGroup(),
     windspeed: L.featureGroup(),
     winddirection: L.featureGroup(),
+    humidity: L.featureGroup(),
 };
 
 
@@ -31,6 +32,7 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
     "Schneehöhe (cm)": overlays.snowheight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed,
     "Windrichtung ": overlays.winddirection,
+    "Luftfeuchtigkeit": overlays.humidity,
     } , {
         collapsed:false
     }
@@ -127,6 +129,15 @@ fetch(awsUrl)
                });
                marker.addTo(overlays.temperature);
            }
+           // Luftfeuchtigkeit 
+           if (typeof station.properties.RH == "number") {
+            let marker = newLabel(station.geometry.coordinates, {
+                value: station.properties.RH.toFixed(1),
+                colors: COLORS.humidity,
+                station: station.properties.name
+            });
+            marker.addTo(overlays.humidity);
+        }
        }
        // set map view to all stations
        map.fitBounds(overlays.stations.getBounds());
