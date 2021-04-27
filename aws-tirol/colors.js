@@ -123,34 +123,34 @@ const COLORS = {
     humidity: [{
         min: 0,
         max: 30,
-        col: "#rgb(238, 238, 238)"
+        col: "#FFFFFF"
     }, {
         min: 30,
         max: 40,
-        col: "#rgb(221, 221, 221)"
+        col: "#DDDDDD"
     }, {
         min: 40,
         max: 50,
-        col: "#rgb(198, 201, 206)"
+        col: "#C6C9CE"
     }, {
         min: 50,
         max: 60,
-        col: "#rgb(187, 187, 187)"
+        col: "#BBBBBB"
     }, {
         min: 60,
         max: 70,
-        col: "#rgb(170, 170, 204)"
+        col: "#AAAACC"
     }, {
         min: 70,
         max: 80,
-        col: "#rgb(153, 152, 221)"
+        col: "#9998DD"
     }, {
         min: 80,
         max: 90,
-        col: "#rgb(135, 136, 238)"
+        col: "#8788EE"
     }, {
         min: 90,
         max: 100,
-        col: "#rgb(118, 119, 225)"
+        col: "#7677E1"
     }]
 };
