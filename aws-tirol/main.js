@@ -46,7 +46,7 @@ L.control.scale({
 }).addTo(map);
 
 // Change default options
-    L.control.rainviwer({ 
+    L.control.rainviewer({ 
         position: 'bottomleft',
         nextButtonText: '>',
         playStopButtonText: 'Play/Stop',
@@ -71,12 +71,12 @@ let getColor = (value, colorRamp) => {
 //get Direction Funktion (Fehler, sobald Rule eingeführt wird..)
 let getDirection = (value, directionRamp) => {
     console.log("Wert:", value, "Direction:", directionRamp);
-    //for (let rule of directionRamp) {
-    // if (value >= rule.min && value < rule.max) {
-    // return rule.dir;
-    //}
-    // }
-    //return "black";
+    for (let rule2 of directionRamp) {
+    if (value >= rule2.min && value < rule2.max) {
+    return rule2.dir;
+    }
+    }
+    return "black";
 };
 
 let newLabel = (coords, options) => {
