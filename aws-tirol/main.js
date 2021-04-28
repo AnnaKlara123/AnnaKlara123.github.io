@@ -38,6 +38,7 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
     }
 ).addTo(map);
 
+overlays.winddirection.addTo(map);
 
 // Maßstab einbauen 
 L.control.scale({
@@ -45,6 +46,7 @@ L.control.scale({
 }    
 ).addTo(map);
 
+// get Color Funktion
 let getColor = (value, colorRamp) => {
     //console.log("Wert:", value, "Palette:", colorRamp);
     for (let rule of colorRamp) {
@@ -55,8 +57,10 @@ let getColor = (value, colorRamp) => {
     return "black";
 };
 
+//get Direction Funktion
 let getDirections = (value, directionRamp) => {
-       for (let rule of directionRamp) {
+    console.log("Wert:", value, "Direction:", directionRamp);  
+    for (let rule of directionRamp) {
         if (value >= rule.min && value < rule.max) {
             return rule.col;
         }
@@ -72,19 +76,6 @@ let newLabel = (coords, options) => {
         className: "text-label"
     })
 
-    let marker = L.marker([coords[1], coords[0]], {
-        icon: label,
-        title: `${options.station} (${coords[2]}m)`
-    });
-    return marker;
-};
-
-let newLabelDirection = (coords, options) => {
-    let color = getDirections(options.value, options.direction);
-    let label = L.divIcon({
-        html: `<div style="background-color:${direction}">${options.value}</div>`,
-        className: "text-label"
-    })
 
     let marker = L.marker([coords[1], coords[0]], {
         icon: label,
@@ -92,6 +83,7 @@ let newLabelDirection = (coords, options) => {
     });
     return marker;
 };
+
 
 // .text-label
 
@@ -157,6 +149,7 @@ fetch(awsUrl)
                });
                marker.addTo(overlays.temperature);
            }
+
            // Luftfeuchtigkeit 
            if (typeof station.properties.RH == "number") {
             let marker = newLabel(station.geometry.coordinates, {
@@ -167,6 +160,17 @@ fetch(awsUrl)
             });
             marker.addTo(overlays.humidity);
         }
+        
+        //Windrichtung
+        if (typeof station.properties.WR == "number") {
+            let marker = newLabel(station.geometry.coordinates, {
+                value: station.properties.WR.toFixed(3),
+                colors: DIRECTIONS,
+                station: station.properties.name
+            });
+            marker.addTo(overlays.winddirection);
+        }
+     
        }
        // set map view to all stations
        map.fitBounds(overlays.stations.getBounds());
