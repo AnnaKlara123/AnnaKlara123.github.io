@@ -24,27 +24,26 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
     "BasemapAT.orthofoto": L.tileLayer.provider('BasemapAT.orthofoto'), //https://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.TileLayer/ - Used to load and display tile layers on the map, implements ILayer interface.
     "BasemapAT.surface": L.tileLayer.provider('BasemapAT.surface'),
     "BasemapAT.overlay+ortho": L.layerGroup([ // Used to group several layers and handle them as one. If you add it to the map, any layers added or removed from the group will be added/removed on the map as well. Extends Layer. - Create a layer group, optionally given an initial set of layers and an options object.
-        L.tileLayer.provider('BasemapAT.orthofoto'), 
+        L.tileLayer.provider('BasemapAT.orthofoto'),
         L.tileLayer.provider('BasemapAT.overlay')
     ])
-}, {"Wetterstationen Tirol": overlays.stations,
+}, {
+    "Wetterstationen Tirol": overlays.stations,
     "Temperatur (C°)": overlays.temperature,
     "Schneehöhe (cm)": overlays.snowheight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed,
     "Windrichtung (°)": overlays.winddirection,
     "Luftfeuchtigkeit (%)": overlays.humidity,
-    } , {
-        collapsed:false
-    }
-).addTo(map);
+}, {
+    collapsed: false
+}).addTo(map);
 
 overlays.winddirection.addTo(map);
 
 // Maßstab einbauen 
 L.control.scale({
     imperial: false
-}    
-).addTo(map);
+}).addTo(map);
 
 // get Color Funktion
 let getColor = (value, colorRamp) => {
@@ -61,27 +60,27 @@ let getColor = (value, colorRamp) => {
 let getDirection = (value, directionRamp) => {
     console.log("Wert:", value, "Direction:", directionRamp);
     //for (let rule of directionRamp) {
-       // if (value >= rule.min && value < rule.max) {
-           // return rule.dir;
-        //}
-   // }
+    // if (value >= rule.min && value < rule.max) {
+    // return rule.dir;
+    //}
+    // }
     //return "black";
 };
 
 let newLabel = (coords, options) => {
     let color = getColor(options.value, options.colors);
-  //  console.log("Wert", options.value, "bekommt Farbe", color); 
+    //  console.log("Wert", options.value, "bekommt Farbe", color); 
     let label = L.divIcon({
         html: `<div style="background-color:${color}">${options.value}</div>`,
         className: "text-label"
     })
 
     let direction = getDirection(options.value, options.directions);
-    console.log("Wert", options.value, "bekommt Richtung", direction); 
-      let label2 = L.divIcon({
-          html: `<div style="background-color:${direction}">${options.value}</div>`,
-          className: "text-label"
-      })
+    console.log("Wert", options.value, "bekommt Richtung", direction);
+    let label2 = L.divIcon({
+        html: `<div style="background-color:${direction}">${options.value}</div>`,
+        className: "text-label"
+    })
 
     let marker = L.marker([coords[1], coords[0]], {
         icon: label,
@@ -121,61 +120,60 @@ fetch(awsUrl)
           </ul>
           <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
             `);
-          
-           // Schneehöhenlayer hizufüen 
-         
-           marker.addTo(overlays.stations);
-           if (typeof station.properties.HS == "number") {
-               let marker = newLabel(station.geometry.coordinates, {
-                   value: station.properties.HS.toFixed(0), 
-                   colors: COLORS.snowheight,
-                   station: station.properties.name,
-               });
-               marker.addTo(overlays.snowheight);
-           }
-           // Windgeschwiendigkeit
 
-           if (typeof station.properties.WG == "number") {
-               let marker = newLabel(station.geometry.coordinates, {
-                   value: station.properties.WG.toFixed(0),
-                   colors: COLORS.windspeed,
-                   station: station.properties.name,
-               });
-               marker.addTo(overlays.windspeed);
-           }
-           // Temperatur
-           if (typeof station.properties.LT == "number") {
-               let marker = newLabel(station.geometry.coordinates, {
-                   value: station.properties.LT.toFixed(1),
-                   colors: COLORS.temperature,
-                   station: station.properties.name,
-               });
-               marker.addTo(overlays.temperature);
-           }
+            // Schneehöhenlayer hizufüen 
 
-           // Luftfeuchtigkeit 
-           if (typeof station.properties.RH == "number") {
-            let marker = newLabel(station.geometry.coordinates, {
-                value: station.properties.RH.toFixed(1),
-                colors: COLORS.humidity,
-                station: station.properties.name,
-            });
-            marker.addTo(overlays.humidity);
+            marker.addTo(overlays.stations);
+            if (typeof station.properties.HS == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.HS.toFixed(0),
+                    colors: COLORS.snowheight,
+                    station: station.properties.name,
+                });
+                marker.addTo(overlays.snowheight);
+            }
+            // Windgeschwiendigkeit
+
+            if (typeof station.properties.WG == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.WG.toFixed(0),
+                    colors: COLORS.windspeed,
+                    station: station.properties.name,
+                });
+                marker.addTo(overlays.windspeed);
+            }
+            // Temperatur
+            if (typeof station.properties.LT == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.LT.toFixed(1),
+                    colors: COLORS.temperature,
+                    station: station.properties.name,
+                });
+                marker.addTo(overlays.temperature);
+            }
+
+            // Luftfeuchtigkeit 
+            if (typeof station.properties.RH == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.RH.toFixed(1),
+                    colors: COLORS.humidity,
+                    station: station.properties.name,
+                });
+                marker.addTo(overlays.humidity);
+            }
+
+            //Windrichtung
+            if (typeof station.properties.WR == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.WR.toFixed(3),
+                    colors: DIRECTIONS, //Soabld die Zeile gelöscht wird funktionieren ALLE Marker nicht mehr
+                    station: station.properties.name,
+                    directions: DIRECTIONS //Zeile funktioniert nicht
+                });
+                marker.addTo(overlays.winddirection);
+            }
+
         }
-        
-        //Windrichtung
-        if (typeof station.properties.WR == "number") {
-            let marker = newLabel(station.geometry.coordinates, {
-                value: station.properties.WR.toFixed(3),
-               
-                station: station.properties.name,
-                directions: DIRECTIONS
-            });
-            marker.addTo(overlays.winddirection);
-        }
-     
-       }
-       // set map view to all stations
-       map.fitBounds(overlays.stations.getBounds());
-   });
-
+        // set map view to all stations
+        map.fitBounds(overlays.stations.getBounds());
+    });
