@@ -113,3 +113,27 @@ if (station.properties.HS <= 10) {
        })
 let getDirection = (value, directionArrow) => {
 };
+
+let newLabelDirection = (coords, options) => {
+    let color = getDirections(options.value, options.direction);
+    let label = L.divIcon({
+        html: `<div style="background-color:${direction}">${options.value}</div>`,
+        className: "text-label"
+    })
+
+    let marker = L.marker([coords[1], coords[0]], {
+        icon: label,
+        title: `${options.station} (${coords[2]}m)`
+    });
+    return marker;
+};
+
+ //Windrichtung
+            if (typeof station.properties.WR == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: getDirection(station.properties.WR, DIRECTIONS),
+                    colors: COLORS.windspeed,
+                    station: station.properties.name
+                });
+                marker.addTo(overlays.winddirection);
+            }
