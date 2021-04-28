@@ -31,8 +31,8 @@ let layerControl = L.control.layers({ //https://leafletjs.com/reference-1.7.1.ht
     "Temperatur (C°)": overlays.temperature,
     "Schneehöhe (cm)": overlays.snowheight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed,
-    "Windrichtung ": overlays.winddirection,
-    "Luftfeuchtigkeit": overlays.humidity,
+    "Windrichtung (°)": overlays.winddirection,
+    "Luftfeuchtigkeit (%)": overlays.humidity,
     } , {
         collapsed:false
     }
@@ -55,6 +55,15 @@ let getColor = (value, colorRamp) => {
     return "black";
 };
 
+let getDirections = (value, directionRamp) => {
+       for (let rule of directionRamp) {
+        if (value >= rule.min && value < rule.max) {
+            return rule.col;
+        }
+    }
+    return "black";
+};
+
 let newLabel = (coords, options) => {
     let color = getColor(options.value, options.colors);
   //  console.log("Wert", options.value, "bekommt Farbe", color); 
@@ -62,12 +71,6 @@ let newLabel = (coords, options) => {
         html: `<div style="background-color:${color}">${options.value}</div>`,
         className: "text-label"
     })
-       // DIRECTIONS HINZUFÜGEN
-       let direction = getDirection(options.value, options.direction);
-       let label = L.divIcon({
-          html: `<div style="background-direction:${direction}">${options.value}</div>`,
-          className: "text-label"
-       })
 
     let marker = L.marker([coords[1], coords[0]], {
         icon: label,
@@ -102,7 +105,7 @@ fetch(awsUrl)
             <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
             <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>
             <li>Windgeschwindrichtung: ${station.properties.WR || '?'}</li>
-            <li>Lufttemperatur: ${station.properties.HR || '?'} %</li>
+            <li>Luftfeuchtigkeit: ${station.properties.HR || '?'} %</li>
           </ul>
           <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
             `);
