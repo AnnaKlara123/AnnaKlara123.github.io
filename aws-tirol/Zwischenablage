@@ -137,3 +137,22 @@ let newLabelDirection = (coords, options) => {
                 });
                 marker.addTo(overlays.winddirection);
             }
+
+
+//get Direction Funktion
+let getDirection = (value, directionRamp) => {
+    console.log("Wert:", value, "Direction:", directionRamp);  
+    for (let rule of directionRamp) {
+        if (value >= rule.min && value < rule.max) {
+            return rule.col;
+        }
+    }
+    return "black";
+
+//Let direction 
+      let direction = getDirection(options.value, options.directions);
+    console.log("Wert", options.value, "bekommt Richtung", direction); 
+      let label2 = L.divIcon({
+          html: `<div style="background-color:${direction}">${options.value}</div>`,
+          className: "text-label"
+      })
