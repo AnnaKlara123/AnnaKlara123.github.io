@@ -102,3 +102,14 @@ if (station.properties.HS <= 10) {
                 if (station.properties.HS > 200) {
                     highlightClass = "snow-201to300"
                 }
+
+
+
+                      // DIRECTIONS HINZUFÜGEN
+       let direction = getDirection(options.value, options.direction);
+       let label = L.divIcon({
+          html: `<div style="direction:${direction}">${options.value}</div>`,
+          className: "text-label"
+       })
+let getDirection = (value, directionArrow) => {
+};
