@@ -57,15 +57,15 @@ let getColor = (value, colorRamp) => {
     return "black";
 };
 
-//get Direction Funktion
-let getDirections = (value, directionRamp) => {
+//get Direction Funktion (Fehler, sobald Rule eingeführt wird..)
+let getDirection = (value, directionRamp) => {
     console.log("Wert:", value, "Direction:", directionRamp);
-    for (let rule of directioRamp) {
-        if (value >= rule.min && value < rule.max) {
-            return rule.col;
-        }
-    }
-    return "black";
+    //for (let rule of directionRamp) {
+       // if (value >= rule.min && value < rule.max) {
+           // return rule.dir;
+        //}
+   // }
+    //return "black";
 };
 
 let newLabel = (coords, options) => {
@@ -76,7 +76,12 @@ let newLabel = (coords, options) => {
         className: "text-label"
     })
 
-  
+    let direction = getDirection(options.value, options.directions);
+    console.log("Wert", options.value, "bekommt Richtung", direction); 
+      let label2 = L.divIcon({
+          html: `<div style="background-color:${direction}">${options.value}</div>`,
+          className: "text-label"
+      })
 
     let marker = L.marker([coords[1], coords[0]], {
         icon: label,
@@ -162,8 +167,9 @@ fetch(awsUrl)
         if (typeof station.properties.WR == "number") {
             let marker = newLabel(station.geometry.coordinates, {
                 value: station.properties.WR.toFixed(3),
-                colors: DIRECTIONS,
-                station: station.properties.name
+               
+                station: station.properties.name,
+                directions: DIRECTIONS
             });
             marker.addTo(overlays.winddirection);
         }
