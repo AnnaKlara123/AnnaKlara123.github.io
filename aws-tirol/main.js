@@ -48,7 +48,7 @@ L.control.scale({
 
 // get Color Funktion
 let getColor = (value, colorRamp) => {
-    //console.log("Wert:", value, "Palette:", colorRamp);
+    console.log("Wert:", value, "Palette:", colorRamp);
     for (let rule of colorRamp) {
         if (value >= rule.min && value < rule.max) {
             return rule.col;
@@ -59,8 +59,8 @@ let getColor = (value, colorRamp) => {
 
 //get Direction Funktion
 let getDirections = (value, directionRamp) => {
-    console.log("Wert:", value, "Direction:", directionRamp);  
-    for (let rule of directionRamp) {
+    console.log("Wert:", value, "Direction:", directionRamp);
+    for (let rule of directioRamp) {
         if (value >= rule.min && value < rule.max) {
             return rule.col;
         }
@@ -76,6 +76,7 @@ let newLabel = (coords, options) => {
         className: "text-label"
     })
 
+  
 
     let marker = L.marker([coords[1], coords[0]], {
         icon: label,
@@ -124,7 +125,6 @@ fetch(awsUrl)
                    value: station.properties.HS.toFixed(0), 
                    colors: COLORS.snowheight,
                    station: station.properties.name,
-                   direction: DIRECTIONS
                });
                marker.addTo(overlays.snowheight);
            }
@@ -135,7 +135,6 @@ fetch(awsUrl)
                    value: station.properties.WG.toFixed(0),
                    colors: COLORS.windspeed,
                    station: station.properties.name,
-                   direction: DIRECTIONS
                });
                marker.addTo(overlays.windspeed);
            }
@@ -145,7 +144,6 @@ fetch(awsUrl)
                    value: station.properties.LT.toFixed(1),
                    colors: COLORS.temperature,
                    station: station.properties.name,
-                   direction: DIRECTIONS
                });
                marker.addTo(overlays.temperature);
            }
@@ -156,7 +154,6 @@ fetch(awsUrl)
                 value: station.properties.RH.toFixed(1),
                 colors: COLORS.humidity,
                 station: station.properties.name,
-                direction: DIRECTIONS
             });
             marker.addTo(overlays.humidity);
         }
