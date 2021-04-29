@@ -47,3 +47,14 @@ let layerControl = L.control.layers({
 overlays.busLines.addTo(map);
 overlays.busStops.addTo(map);
 overlays.pedAreas.addTo(map);
+
+// Datensatz mit Statinsdaten visualisieren! Alle Stationeen sind mit Punkt gekennzeichnet 
+fetch("data/TOURISTIKHTSVSLOGD.json")
+    .then(response => response.json())
+    .then(stations => {
+        L.geoJson(stations, {
+            onEachFeature: (feature, layer) => {
+              layer.bindPopup(feature.properties.STAT_NAME)  
+            } 
+        }).addTo(map);
+    })
