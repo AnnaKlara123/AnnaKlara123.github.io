@@ -45,6 +45,12 @@ let layerControl = L.control.layers({
     "Sehenswürdgkeit": overlays.touristAttraction,
 }).addTo(map);
 
+// Maßstab einbauen 
+L.control.scale({
+    imperial: false
+}).addTo(map);
+
+
 // alle Overlays nach dem Laden anzeigen
 overlays.busLines.addTo(map);
 overlays.busStops.addTo(map);
