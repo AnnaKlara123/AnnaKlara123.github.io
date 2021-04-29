@@ -71,9 +71,9 @@ let getColor = (value, colorRamp) => {
 //get Direction Funktion (Fehler, sobald Rule eingeführt wird..)
 let getDirection = (value, directionRamp) => {
     console.log("Wert:", value, "Direction:", directionRamp);
-    for (let rule2 of directionRamp) {
-    if (value >= rule2.min && value < rule2.max) {
-    return rule2.dir;
+    for (let rule of directionRamp) {
+    if (value >= rule.min && value < rule.max) {
+    return rule.dir;
     }
     }
     return "black";
@@ -87,13 +87,19 @@ let newLabel = (coords, options) => {
         className: "text-label"
     })
 
-    let direction = getDirection(options.value, options.directions);
-    console.log("Wert", options.value, "bekommt Richtung", direction);
-    let label2 = L.divIcon({
-        html: `<div style="background-color:${direction}">${options.value}</div>`,
-        className: "text-label"
-    })
+    let marker = L.marker([coords[1], coords[0]], {
+        icon: label,
+        title: `${options.station} (${coords[2]}m)`
+    });
+    return marker;
+};
 
+let newDirectionLabel = (coords, options) => {
+    let direction = getDirection(options.value, options.directions);
+    let label = L.divIcon({
+        html: `<div>${direction}</div>`,
+        className: "text-label"
+    });
     let marker = L.marker([coords[1], coords[0]], {
         icon: label,
         title: `${options.station} (${coords[2]}m)`
@@ -127,7 +133,7 @@ fetch(awsUrl)
             <li>Temperatur: ${station.properties.LT ||'?'} °C</li>
             <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
             <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>
-            <li>Windgeschwindrichtung: ${station.properties.WR || '?'}</li>
+            <li>Windrichtung: ${station.properties.WR || '?'}</li>
             <li>Luftfeuchtigkeit: ${station.properties.HR || '?'} %</li>
           </ul>
           <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
@@ -174,16 +180,15 @@ fetch(awsUrl)
                 marker.addTo(overlays.humidity);
             }
 
-            //Windrichtung
-            if (typeof station.properties.WR == "number") {
-                let marker = newLabel(station.geometry.coordinates, {
-                    value: station.properties.WR.toFixed(3),
-                    colors: DIRECTIONS, //Soabld die Zeile gelöscht wird funktionieren ALLE Marker nicht mehr
-                    station: station.properties.name,
-                    directions: DIRECTIONS //Zeile funktioniert nicht
-                });
-                marker.addTo(overlays.winddirection);
-            }
+ //Windrichtung
+ if (typeof station.properties.WR == "number") {
+    let marker = newDirectionLabel(station.geometry.coordinates, {
+        value: station.properties.WR,
+        directions: DIRECTIONS,
+        station: station.properties.name
+    });
+    marker.addTo(overlays.winddirection);
+}
 
         }
         // set map view to all stations
