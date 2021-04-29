@@ -49,31 +49,27 @@ overlays.busStops.addTo(map);
 overlays.pedAreas.addTo(map);
 
 let drawBusStop = (geojsonData) => {
-       L.geoJson(geojsonData, {
-          onEachFeature: (feature, layer) => {
+    L.geoJson(geojsonData, {
+        onEachFeature: (feature, layer) => {
             layer.bindPopup(feature.properties.STAT_NAME)
-      },
-       pointToLayer: (geoJsonPoint, latlng) => {
-        return L.marker(latlng, {
-          icon: L.icon({
-          iconUrl: 'icons/busstop.png',
-           iconSize: [38, 38]
-       })
-        })
+        },
+        pointToLayer: (geoJsonPoint, latlng) => {
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: 'icons/busstop.png',
+                    iconSize: [30, 30]
+                })
+            })
         }
-   }).addTo(map);
-
+    }).addTo(overlays.busStops);
 }
 
+
 // Datensatz mit Statinsdaten visualisieren! Alle Stationeen sind mit Punkt gekennzeichnet 
-//fetch("data/TOURISTIKHTSVSLOGD.json")
-  //  .then(response => response.json())
-    //.then(stations => {
-    
- //   })
+
 
 for (let config of OGDWIEN) {
-    console.log( "config: ", config.data);
+    console.log( "Config: ", config.data);
     fetch(config.data)
     .then(response => response.json())
     .then(geojsonData => {
@@ -82,6 +78,6 @@ for (let config of OGDWIEN) {
             drawBusStop(geojsonData);
 
         }
-        L.geoJson(geojsonData).addTo(map);
+
     })
 }
