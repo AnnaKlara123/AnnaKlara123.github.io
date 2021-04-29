@@ -46,16 +46,16 @@ L.control.scale({
 }).addTo(map);
 
 // Change default options
-    L.control.rainviewer({ 
-        position: 'bottomleft',
-        nextButtonText: '>',
-        playStopButtonText: 'Play/Stop',
-        prevButtonText: '<',
-        positionSliderLabelText: "Hour:",
-        opacitySliderLabelText: "Opacity:",
-        animationInterval: 500,
-        opacity: 0.5
-    }).addTo(map);
+L.control.rainviewer({
+    position: 'bottomleft',
+    nextButtonText: '>',
+    playStopButtonText: 'Play/Stop',
+    prevButtonText: '<',
+    positionSliderLabelText: "Hour:",
+    opacitySliderLabelText: "Opacity:",
+    animationInterval: 500,
+    opacity: 0.5
+}).addTo(map);
 
 // get Color Funktion
 let getColor = (value, colorRamp) => {
@@ -72,9 +72,9 @@ let getColor = (value, colorRamp) => {
 let getDirection = (value, directionRamp) => {
     console.log("Wert:", value, "Direction:", directionRamp);
     for (let rule of directionRamp) {
-    if (value >= rule.min && value < rule.max) {
-    return rule.dir;
-    }
+        if (value >= rule.min && value < rule.max) {
+            return rule.dir;
+        }
     }
     return "black";
 };
@@ -180,15 +180,15 @@ fetch(awsUrl)
                 marker.addTo(overlays.humidity);
             }
 
- //Windrichtung
- if (typeof station.properties.WR == "number") {
-    let marker = newDirectionLabel(station.geometry.coordinates, {
-        value: station.properties.WR,
-        directions: DIRECTIONS,
-        station: station.properties.name
-    });
-    marker.addTo(overlays.winddirection);
-}
+            //Windrichtung
+            if (typeof station.properties.WR == "number") {
+                let marker = newDirectionLabel(station.geometry.coordinates, {
+                    value: station.properties.WR,
+                    directions: DIRECTIONS,
+                    station: station.properties.name
+                });
+                marker.addTo(overlays.winddirection);
+            }
 
         }
         // set map view to all stations
