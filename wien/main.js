@@ -73,16 +73,7 @@ let drawBusLine = (geojsonData) => {
         style: (feature) => {
             let col = "red";
             col = COLORS.buslines[feature.properties.LINE_NAME]
-            
-            if (feature.properties.LINE_NAME == 'Blue Line') {
-                col = COLORS.buslines ["Blue Line"];
-            }
-            if (feature.properties.LINE_NAME == 'Yellow Line') {
-                col = COLORS.buslines ["Yellow Line"];
-            
-                if (feature.properties.LINE_NAME == 'Grey Line') {
-                    col = COLORS.buslines ["Grey Line"];
-            }
+
             return {
                 color: col
             }
