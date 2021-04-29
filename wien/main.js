@@ -68,13 +68,23 @@ let drawBusStop = (geojsonData) => {
 }
 // Liniennetz einfügen
 let drawBusLine = (geojsonData) => {
+    console.log('Bus Lines: ', geojsonData);
     L.geoJson(geojsonData, {
-        onEachFeature: (feature, layer) => {
-            layer.bindPopup(`<strong>${feature.properties.LINE_ID}</strong>
-            <hr>
-            Station: ${feature.properties.LINE_NAME}`)
+        style: (feature) => {
+            let col = "red";
+            if (feature.properties.LINE_NAME == 'Blue Line') {
+                col = "blue";
+            }
+            return {
+                color: col
+            }
         },
-
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
+            <hr>
+            von ${feature.properties.FROM_NAME}<br>
+            nach ${feature.properties.TO_NAME}`)
+        }
     }).addTo(overlays.busLines);
 }
 
