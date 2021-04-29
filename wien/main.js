@@ -86,6 +86,31 @@ let drawBusLine = (geojsonData) => {
         }
     }).addTo(overlays.busLines);
 }
+// Fußgängerzone
+let drawPedestrianAreas = (geojsonData) => {
+    console.log('Zone: ', geojsonData);
+    L.geoJson(geojsonData, {
+        style: (feature) => {
+            return {
+                stroke: true,
+                color: "yellow",
+                fillColor: "yellow",
+                fillOpacity: 0.3
+            }
+        },
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(`<strong>Fußgängerzone ${feature.properties.ADRESSE}</strong>
+            <hr>
+            ${feature.properties.ZEITRAUM} <br>
+            ${feature.properties.AUSN_TEXT}
+            `);
+        }
+    }).addTo(overlays.pedAreas);
+}
+
+// Sehenswürdigkeiten hinzufügen 
+
+
 
 // Datensatz mit Statinsdaten visualisieren! Alle Stationeen sind mit Punkt gekennzeichnet 
 for (let config of OGDWIEN) {
@@ -97,8 +122,11 @@ for (let config of OGDWIEN) {
             if (config.title == "Haltestellen Vienna Sightseeing") {
                 drawBusStop(geojsonData);
             }
-            if (config.title == "Liniennetz Vienna Sightseeing") {
+           else if (config.title == "Liniennetz Vienna Sightseeing") {
                 drawBusLine(geojsonData);
             }
+            else if (config.title === "Fußgängerzonen") {
+            drawPedestrianAreas(geojsonData);
+        }
         })
 }
