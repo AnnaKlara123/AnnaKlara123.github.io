@@ -97,7 +97,7 @@ for (let config of OGDWIEN) {
         .then(geojsonData => {
             console.log("Data: ", geojsonData);
             if (config.title == "Liniennetz Vienna Sightseeing") {
-                drawBusStop(geojsonData);
+                drawBusLine(geojsonData);
             }
         })
 }
