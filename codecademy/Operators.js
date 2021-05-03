@@ -120,9 +120,104 @@ const plantNeedsWater = function (day) {
   plantNeedsWater('Tuesday') //Hier den aktuellen Tag checken. Wenn dieser NICHT Mittwoch ist, wird False ausgegeben!
   console.log(plantNeedsWater('Tuesday'))
 
+
   // kürzen 
   const plantNeedsWater = (day) => {
     return day === 'Wednesday' ? true : false;
   }; 
   // If durch ? & : ersetzen, Retrun ist bei Einzeiler automatisch 
   const plantNeedsWater = day =>  day === 'Wednesday' ? true : false;
+
+
+
+  // Arrays sind Liste. Diese können mit [] bestimmt werden
+  let seasons = ['Winter', 'Spring', 'Summer', 'Fall'];
+ 
+seasons[3] = 'Autumn'; // Liste bearbeitet 
+console.log(seasons); 
+//Output: ['Winter', 'Spring', 'Summer', 'Autumn']
+
+
+// zählen, wie lange ein Array ist: .length nutzen!
+const objectives = ['Learn a new languages', 'Read 52 books', 'Run a marathon'];
+console.log(objectives.length)
+
+
+
+//.push() allows us to add items to the end of an array.
+const itemTracker = ['item 0', 'item 1', 'item 2'];
+ 
+itemTracker.push('item 3', 'item 4');
+ 
+console.log(itemTracker); 
+// Output: ['item 0', 'item 1', 'item 2', 'item 3', 'item 4'];
+
+
+
+// .pop(), removes the last item of an array.
+const newItemTracker = ['item 0', 'item 1', 'item 2'];
+const removed = newItemTracker.pop();
+console.log(newItemTracker); 
+// Output: [ 'item 0', 'item 1' ]
+console.log(removed);
+// Output: item 2
+
+
+// Arrays & Fuktionn verbinden
+const concept = ['arrays', 'can', 'be', 'mutated'];
+
+function changeArr(arr){
+  arr[3] = 'MUTATED';
+};
+let removeElement = (newArr) =>  {newArr.pop()}
+
+removeElement(concept);
+console.log(concept)
+
+
+// nested Arrays
+const nestedArr = [[1], [2, 3]];
+ 
+console.log(nestedArr[1]); // Output: [2, 3]
+console.log(nestedArr[1][0]); // Output: 2
+//bzw.
+let numberClusters = [[1, 2],[3, 4], [5, 6]];
+console.log(numberClusters) //[ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ]
+
+const target = numberClusters[2][1]
+
+console.log(target); // 6
+
+
+// OBJECTS - An object literal with two key-value pairs // hier 2 Proporties: Fuel & Farbe
+let spaceship = { //Objektname/ 
+  'Fuel Type': 'diesel', //Key bzw. Identefier  : Value bzw. Property
+  color: 'silver'
+};
+
+// der dot-Operator! Ruft durch den Key den Vaule eines Objektes auf! 
+let spaceship = {
+  homePlanet: 'Earth',
+  color: 'silver'
+};
+spaceship.homePlanet; // Returns 'Earth',
+spaceship.color; // Returns 'silver',
+
+// auf [] Achten bei Aufrufen von Keys mit ''
+let spaceship = {
+  'Fuel Type': 'Turbo Fuel',
+  'Active Duty': true,
+  homePlanet: 'Earth',
+  numCrew: 5
+};
+spaceship['Active Duty'];   // Returns true
+spaceship['Fuel Type'];   // Returns  'Turbo Fuel'
+
+
+// Objekte bearbeiten!
+const spaceship = {type: 'shuttle'};
+spaceship = {type: 'alien'}; // TypeError: Assignment to constant variable.
+spaceship.type = 'alien'; // Changes the value of the type property
+spaceship.speed = 'Mach 5'; // Creates a new key of 'speed' with a value of 'Mach 5'
+
+// methods :  A property is what an object has, while a method is what an object does.
