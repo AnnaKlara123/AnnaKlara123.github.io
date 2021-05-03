@@ -220,4 +220,6 @@ spaceship = {type: 'alien'}; // TypeError: Assignment to constant variable.
 spaceship.type = 'alien'; // Changes the value of the type property
 spaceship.speed = 'Mach 5'; // Creates a new key of 'speed' with a value of 'Mach 5'
 
+
+
 // methods :  A property is what an object has, while a method is what an object does.
