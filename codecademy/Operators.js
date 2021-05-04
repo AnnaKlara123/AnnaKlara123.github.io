@@ -222,4 +222,61 @@ spaceship.speed = 'Mach 5'; // Creates a new key of 'speed' with a value of 'Mac
 
 
 
-// methods :  A property is what an object has, while a method is what an object does.
+// Objekte in Objekten ansprechen!
+let spaceship = {
+  passengers: {
+    namesList: ['Simon', 'Karl', 'Sophia']
+    },  
+  telescope: {
+    yearBuilt: 2018,
+    model: "91031-XLT",
+    focalLength: 2032 
+  },
+  crew: {
+    captain: { 
+      name: 'Sandra', 
+      degree: 'Computer Engineering', 
+      encourageTeam() { console.log('We got this!') },
+     'favorite foods': ['cookies', 'cakes', 'candy', 'spinach'] }
+  },
+  
+let capFave = spaceship.crew.captain['favorite foods'][0];
+let firstPassenger = spaceship.passengers.namesList[0];
+console.log(capFave) // [ 'cookies', 'cakes', 'candy', 'spinach' ]
+console.log(firstPassenger) //Simon
+
+
+
+// Looping Through Objects - Loops are programming tools that repeat a block of code until a condition is met.
+let spaceship = {
+  crew: {
+  captain: { 
+      name: 'Lily', 
+      degree: 'Computer Engineering', 
+      cheerTeam() { console.log('You got this!') } 
+      },
+  'chief officer': { 
+      name: 'Dan', 
+      degree: 'Aerospace Engineering', 
+      agree() { console.log('I agree, captain!') } 
+      },
+  medic: { 
+      name: 'Clementine', 
+      degree: 'Physics', 
+      announce() { console.log(`Jets on!`) } },
+  translator: {
+      name: 'Shauna', 
+      degree: 'Conservation Science', 
+      powerFuel() { console.log('The tank is full!') } 
+      }
+  }
+}; 
+
+// Jetzt LOOPEN!! 
+for (let crewMember in spaceship.crew) {
+console.log(`${crewMember}: ${spaceship.crew[crewMember].name}`)
+}; // captain: Lily ;  chief officer: Dan ; medic: Clementine , translator: Shauna
+
+for (let crewMember in spaceship.crew) {
+console.log(`${spaceship.crew[crewMember].name}: ${spaceship.crew[crewMember].degree}`)
+}; // Lily: Computer Engineering;  Dan: Aerospace Engineering;  Clementine: Physics;  Shauna: Conservation Science
