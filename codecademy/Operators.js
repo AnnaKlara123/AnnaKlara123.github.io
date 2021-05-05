@@ -286,3 +286,17 @@ console.log(`${spaceship.crew[crewMember].name}: ${spaceship.crew[crewMember].de
 for (let counter = 5; counter < 11; counter++) {
   console.log(counter);
 } // 5 6 7 8 9 10 
+
+//Loops Aufbau & AUfrufen 
+const rapperArray = ["Lil' Kim", "Jay-Z", "Notorious B.I.G.", "Tupac"];
+
+for (let i = 0; i < rapperArray.length; i++) {
+  console.log(rapperArray[2]);
+};
+// es ist immer for (1. Wo fängt man an: let VARIABLE = STARTZAHL;2: Bedingungn, bis wann soll Aktion stattfinden: VARIABLE < OBJEKTANZAHL; 3. Wie soll weitergerechnet werden: Immer mit dem nächsten Wert: VARIABLE+1) {HIER Console.log() von dem, was man X mal ausgegeben bekommen will! Bestenfalls auch noch mit der genauen }
+
+// Loop Log:
+let groceryList = ['orange juice', 'bananas', 'coffee beans', 'brown rice', 'pasta', 'coconut oil', 'plantains'];
+for (let food = 0; food < 3; food++){console.log(groceryList[3]);
+break;
+} // brown rice
