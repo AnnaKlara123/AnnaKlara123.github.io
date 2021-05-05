@@ -280,3 +280,9 @@ console.log(`${crewMember}: ${spaceship.crew[crewMember].name}`)
 for (let crewMember in spaceship.crew) {
 console.log(`${spaceship.crew[crewMember].name}: ${spaceship.crew[crewMember].degree}`)
 }; // Lily: Computer Engineering;  Dan: Aerospace Engineering;  Clementine: Physics;  Shauna: Conservation Science
+
+
+// For loops!
+for (let counter = 5; counter < 11; counter++) {
+  console.log(counter);
+} // 5 6 7 8 9 10 
