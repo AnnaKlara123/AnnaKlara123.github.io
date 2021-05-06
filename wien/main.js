@@ -13,6 +13,8 @@ let baselayers = {
     ]),
 };
 
+
+
 // Overlays für die Themen zum Ein- und Ausschalten definieren
 let overlays = {
     busLines: L.featureGroup(),
@@ -23,8 +25,8 @@ let overlays = {
 
 // Karte initialisieren und auf Wiens Wikipedia Koordinate blicken
 let map = L.map("map", {
-        fullscreenControl: true,
-        center: [48.208333, 16.373056],
+    fullscreenControl: true,
+    center: [48.208333, 16.373056],
     zoom: 13,
     layers: [
         baselayers.grau
@@ -43,7 +45,8 @@ let layerControl = L.control.layers({
     "Liniennetz Vienna Sightseeing": overlays.busLines,
     "Haltestellen Vienna Sightseeing": overlays.busStops,
     "Fußgängerzonen": overlays.pedAreas,
-    "Sehenswürdgkeit": overlays.touristAttraction,
+    "Sehenswürdgkeit": overlays.touristAttraction
+
 }).addTo(map);
 
 // Maßstab einbauen 
@@ -149,18 +152,21 @@ for (let config of OGDWIEN) {
             console.log("Data: ", geojsonData);
             if (config.title == "Haltestellen Vienna Sightseeing") {
                 drawBusStop(geojsonData);
-            }
-           else if (config.title == "Liniennetz Vienna Sightseeing") {
+            } else if (config.title == "Liniennetz Vienna Sightseeing") {
                 drawBusLine(geojsonData);
-            }
-            else if (config.title === "Fußgängerzonen") {
-            drawPedestrianAreas(geojsonData);
-            }
-            else if (config.title === "Sehenswürdigkeiten") {
+            } else if (config.title === "Fußgängerzonen") {
+                drawPedestrianAreas(geojsonData);
+            } else if (config.title === "Sehenswürdigkeiten") {
                 drawAttractions(geojsonData);
-        }
+            }
         })
 }
 
 // Leaf
 L.hash(map);
+
+// Minimap Leaflet
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"),
+{toggleDisplay:true,
+minimized: false}
+).addTo(map);
