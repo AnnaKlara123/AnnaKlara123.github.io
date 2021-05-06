@@ -16,9 +16,9 @@ let baselayers = {
 // Overlays für die Themen zum Ein- und Ausschalten definieren
 let overlays = {
     busLines: L.featureGroup(),
-    busStops: L.featureGroup(),
+    busStops: L.markerClusterGroup(),
     pedAreas: L.featureGroup(),
-    touristAttraction: L.featureGroup(),
+    touristAttraction: L.markerClusterGroup(),
 };
 
 // Karte initialisieren und auf Wiens Wikipedia Koordinate blicken
@@ -163,4 +163,4 @@ for (let config of OGDWIEN) {
 }
 
 // Leaf
- L.hast(map); 
+L.hash(map);
