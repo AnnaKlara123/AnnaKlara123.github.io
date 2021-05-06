@@ -172,9 +172,33 @@ minimized: false}
 ).addTo(map);
 
 // Reachability plugin
+let styleIntervals = (feature) => {
+    //console.log(feature.properties);
+   // console.log(feature.properties.Measure)
+   let color = "";
+   let range = feature.properties.Range;
+   if (feature.properties.Measure === "time") {
+       color = COLORS.minutes[range];
+       // Farbpaletten Fime und Distance einfügen! 
+   } else if (feature.properties.Measure === "distance") {
+       color = COLORS.kilometers[range];
+   } else {
+       color = "black";
+   }
+   return {
+       color: color,
+       opacity: 0.5,
+       fillOpacity: 0.2
+   }; 
+};
+
+
+
 L.control.reachability({
     // add settings/options here
-    apiKey: '5b3ce3597851110001cf6248f2e29ee07ae24de2846556977f4db7e2', drawButtonContent: '',
+    apiKey: '5b3ce3597851110001cf6248f2e29ee07ae24de2846556977f4db7e2', 
+    styleFn: styleIntervals,
+    drawButtonContent: '',
     drawButtonStyleClass: 'fa fa-pencil-alt fa-2x',
     deleteButtonContent: '',
     deleteButtonStyleClass: 'fa fa-trash fa-2x',
