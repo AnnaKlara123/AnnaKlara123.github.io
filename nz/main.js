@@ -11,7 +11,7 @@ const map = L.map("map", {
     //center: [stop.lat, stop.lng],
     //zoom: 13,
     layers: [
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') 
     ]
 });
 
@@ -52,5 +52,9 @@ nav.onchange = (evt) => {
     window.location.href = link;
     console.log(link);
 }
+// 3. Minimap hinzufügen
+var miniMap = new L.Control.MiniMap(
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+).addTo(map);
 
 console.log(document.querySelector("#map"));
