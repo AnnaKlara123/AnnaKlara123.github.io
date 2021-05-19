@@ -58,10 +58,4 @@ var miniMap = new L.Control.MiniMap(
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 ).addTo(map);
 
-// 5. Fullscreen hinzufügen
-var fullscreenmap = new L.map('map', {
-    fullscreenControl: true,
-    fullscreenControlOptions: {
-      position: 'topleft'
-    }
-  });
+
