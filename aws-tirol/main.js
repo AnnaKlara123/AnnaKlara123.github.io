@@ -194,3 +194,9 @@ fetch(awsUrl)
         // set map view to all stations
         map.fitBounds(overlays.stations.getBounds());
     });
+
+// Leaflet Minimap 
+    var miniMap = new L.Control.MiniMap(
+        L.tileLayer.provider('BasemapAT.orthofoto')
+    ).addTo(map);
+    
