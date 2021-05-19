@@ -10,6 +10,7 @@ let stop = {
 const map = L.map("map", {
     //center: [stop.lat, stop.lng],
     //zoom: 13,
+    fullscreenControl: true,
     layers: [
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png') 
     ]
@@ -57,4 +58,10 @@ var miniMap = new L.Control.MiniMap(
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 ).addTo(map);
 
-console.log(document.querySelector("#map"));
+// 5. Fullscreen hinzufügen
+var fullscreenmap = new L.map('map', {
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+      position: 'topleft'
+    }
+  });
