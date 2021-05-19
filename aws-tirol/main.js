@@ -195,8 +195,8 @@ fetch(awsUrl)
         map.fitBounds(overlays.stations.getBounds());
     });
 
-// Leaflet Minimap 
-    var miniMap = new L.Control.MiniMap(
-        L.tileLayer.provider('BasemapAT.orthofoto')
-    ).addTo(map);
-    
+// Minimap Leaflet
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"),
+{toggleDisplay:true,
+minimized: true}
+).addTo(map);  
