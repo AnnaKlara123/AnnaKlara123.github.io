@@ -198,5 +198,7 @@ fetch(awsUrl)
 // Minimap Leaflet
 var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"),
 {toggleDisplay:true,
+    centerFixed: false,
+    zoomLevelOffset: -1, 
 minimized: true}
 ).addTo(map);  
