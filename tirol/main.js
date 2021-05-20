@@ -86,3 +86,22 @@ const drawTrack = (nr) =>{
 //drawTrack(30); --> //Veriaable variabel halten (bei mr NUMMER 30. Diese wied durch draw Track vergeben)
 const selectTrack = 30;
 drawTrack(selectTrack);
+
+//
+console.log('biketirol json: ', BIKETIROL);
+let pulldown = document.querySelector("#pulldown");
+console.log('Pulldown: ', pulldown);
+let selected = '';
+for (let track of BIKETIROL) {
+    if (selectedTrack == track.nr) {
+        selected = 'selected';
+    } else{
+        selected = '';
+    }
+    pulldown.innerHTML += `<option value="${track.nr}">${track.nr}: ${track.etappe}</option>`;
+} 
+
+pulldown.onchange = () => {
+    console.log('Changed!!!', pulldown.value); 
+    drawTrack(pulldown.value);
+};
