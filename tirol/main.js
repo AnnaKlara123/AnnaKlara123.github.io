@@ -41,6 +41,12 @@ let layerControl = L.control.layers({
 
 // Overlay mit GPX-Track anzeigen
 overlays.tracks.addTo(map);
+
+const elevationontrol = L.control.elevation({
+    elevationDiv:"#profile",
+    followMarker: false,
+}).addTo(map);
+
 //Tracks zeichnen
 const drawTrack = (nr) =>{
     console.log('Track: ', nr);
@@ -75,6 +81,7 @@ const drawTrack = (nr) =>{
     //popup with
     //Name, max höhe, min. höhe, total distance
 };
+elevationControl.load(`tracks/${nr}`.gpx)
 //drawTrack(30); --> //Veriaable variabel halten (bei mr NUMMER 30. Diese wied durch draw Track vergeben)
 const selectTrack = 30;
 drawTrack(selectTrack);
