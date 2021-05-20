@@ -44,7 +44,37 @@ overlays.tracks.addTo(map);
 //Tracks zeichnen
 const drawTrack = (nr) =>{
     console.log('Track: ', nr);
+    let gpxTrack =new L.GPX(`tracks/${nr}.gpx`,{
+        async:true,
+        marker_options: {
+            startIconUrl: `icons/number_${nr}.png`,
+            endIconUrl: `icons/finish.png`,
+            shadowUrl: null,
+          },
+          //Die Strecke stricheln 
+          polyline_options: {
+              color: 'black',
+            dashArray: [2, 5],}
+    }).addTo(overlays.tracks);
+    //Zoomen der Map auf den AUsschnitt geht erst, nachdem die Karte geladen wurde!
+    gpxTrack.on("loaded", () => {
+        console.log('loaded gpx');
+        console.log('Track name: ', gpxTrack.get_name());
+        console.log('Track name: ', gpxTrack.get_distance());
+        gpxTrack.bindPopup(`
+        <h3>${gpxTrack.get_name()}</h3>
+        <ul>
+            <li>Streckenlänge: ${gpxTrack.get_distance()} m</li>
+            <li>tiefster Punkt: ${gpxTrack.get_elevation_min()} m</li>
+            <li>höchster Punkt: ${gpxTrack.get_elevation_max()} m</li>
+            <li>Höhenmeter bergauf: ${gpxTrack.get_elevation_gain()} m</li>
+            <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
+        </ul>
+        `);
+    })
+    //popup with
+    //Name, max höhe, min. höhe, total distance
 };
-//drawTrack(7); --> //Veriaable variabel halten
-const selectTrack = 7;
+//drawTrack(30); --> //Veriaable variabel halten (bei mr NUMMER 30. Diese wied durch draw Track vergeben)
+const selectTrack = 30;
 drawTrack(selectTrack);
