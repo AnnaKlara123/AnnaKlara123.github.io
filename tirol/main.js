@@ -86,8 +86,8 @@ const drawTrack = (nr) =>{
     //Name, max höhe, min. höhe, total distance
 };
 //drawTrack(30); --> //Veriaable variabel halten (bei mr NUMMER 30. Diese wied durch draw Track vergeben)
-const selectTrack = 30;
-drawTrack(selectTrack);
+const selectedTrack = 30;
+drawTrack(selectedTrack);
 
 //
 console.log('biketirol json: ', BIKETIROL);
