@@ -58,4 +58,18 @@ var miniMap = new L.Control.MiniMap(
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 ).addTo(map);
 
+//Route in in minimap
+for (let entry of ROUTE) {
+console.log(entry);
 
+nav.innerHTML += `<option value="${entry.user}">Stop ${entry.nr}: ${entry.name}</option>`;
+let minimrk = L.marker([entry.lat, entry.lng]).addTo(miniMap);
+minimrk.bindPopup(`<h4>Stop ${entry.nr}: ${entry.name}<h4>
+<p><a href="${entry.wikipedia}"><i class="fas fa-external-link-alt mr-3"></i>Read about stop in Wikipedia</a></p>
+`);
+
+    if (entry.nr == 7) {
+       miniMap.setView([entry.lat, entry.lng], 13)
+        minimrk.openPopup();
+    }
+}
