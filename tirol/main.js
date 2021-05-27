@@ -90,7 +90,10 @@ fetch(url).then(
         }
         let mrk =L.marker([article.lat, article.lng], {
             icon: L.icon({
-                iconUrl: `icons/${icons[article.feature]}`
+                iconUrl: `icons/${icons[article.feature]}`,
+                iconSize: [32, 37],
+                iconAnchor:[16, 37], 
+                popupAnchor:[0, -37]
             })
         });
         mrk.addTo(overlays.wikipedia);
