@@ -43,13 +43,27 @@ let layerControl = L.control.layers({
 
 // Overlay mit GPX-Track anzeigen
 overlays.tracks.addTo(map);
-overlays.wikipedia.addTo(mao);
+overlays.wikipedia.addTo(map);
 
 const elevationControl = L.control.elevation({
     elevationDiv: "#profile",
     followMarker: false,
     theme: 'lime-theme',
 }).addTo(map);
+
+// Wikipedia Artikel zeichnen -GEO NAMES
+const drawWikipedia =(bounds) =>{
+console.log(bounds);
+let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=AnnaKlara123&lang=de&maxRows=30`;
+console.log(url);
+
+fetch(url).then(
+    response => response.json()
+).then(jsonData => {
+    console.log(jsonData)
+});
+
+};
 
 //Tracks zeichnen
 const drawTrack = (nr) =>{
@@ -83,10 +97,14 @@ const drawTrack = (nr) =>{
             <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
         </ul>
         `);
-        elevationControl.load(`tracks/${nr}.gpx`);
+
+        //Wikipedia zeichenn/aufrufen
+        drawWikipedia(gpxTrack.getBounds());
+       
     })
     //popup with
     //Name, max höhe, min. höhe, total distance
+    elevationControl.load(`tracks/${nr}.gpx`);
 };
 //drawTrack(30); --> //Veriaable variabel halten (bei mr NUMMER 30. Diese wied durch draw Track vergeben)
 const selectedTrack = 30;
