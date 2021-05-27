@@ -52,6 +52,7 @@ const elevationControl = L.control.elevation({
 }).addTo(map);
 
 // Wikipedia Artikel zeichnen -GEO NAMES
+let articleDrawn = {};
 const drawWikipedia =(bounds) =>{
 console.log(bounds);
 let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=AnnaKlara123&lang=de&maxRows=30`;
@@ -81,6 +82,16 @@ fetch(url).then(
 
 //Wikipedia Artikel zeigen 
     for (let article of jsonData.geonames) {
+        // Habe ich den Artikel schon gezeichnet? --> If
+        if (articleDrawn[article.wikipediaUrl]) {
+            //Ja, nicht noch einmal zeichnen!
+            console.log("schon gesehen", article.wikipediaUrl);
+            continue;
+        } else{
+            articleDrawn[article.wikipediaUrl] = true;
+        }
+
+        }
         //welches Icon soll verwendet werden? --> IF abfrage
         if(icons[article.feature]) {
 // ICON ist bekannt
@@ -113,7 +124,7 @@ fetch(url).then(
                 <a target="Wikipedia" href="https://${article.wikipediaUrl}">Wikipedia-Artikel</a>
         `);
     }
-});
+);
 
 };
 
@@ -149,9 +160,6 @@ const drawTrack = (nr) =>{
             <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
         </ul>
         `);
-
-        //Wikipedia zeichenn/aufrufen
-        drawWikipedia(gpxTrack.getBounds());
        
     })
     //popup with
@@ -180,3 +188,9 @@ pulldown.onchange = () => {
     console.log('changed!!!!!', pulldown.value);
     drawTrack(pulldown.value);
 }; 
+
+//Event handler map.on (Auf welches Ereigniss er reagieren soll: Zoom, Pan)  
+map.on("zoomend moveend", () => {
+    // Wikipedia Artikel zeichnen
+    drawWikipedia(map.getBounds());
+});
