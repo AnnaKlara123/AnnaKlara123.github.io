@@ -81,7 +81,18 @@ fetch(url).then(
 
 //Wikipedia Artikel zeigen 
     for (let article of jsonData.geonames) {
-        let mrk =L.marker([article.lat, article.lng]);
+        //welches Icon soll verwendet werden? --> IF abfrage
+        if(icons[article.feature]) {
+// ICON ist bekannt
+        } else {
+            //generisches Icon
+            article.feature="default";
+        }
+        let mrk =L.marker([article.lat, article.lng], {
+            icon: L.icon({
+                iconUrl: `icons/${icons[article.feature]}`
+            })
+        });
         mrk.addTo(overlays.wikipedia);
 
         //Popup erzeugen
