@@ -57,16 +57,47 @@ console.log(bounds);
 let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=AnnaKlara123&lang=de&maxRows=30`;
 console.log(url);
 
-//Fetch sagt immer, dass etwas aus dem Internet zurückgegeben wird! Hier der WIkipedia Artikel 
+
+let icons = {
+    adm1st: "wikipedia_administration.png",
+    adm2nd: "wikipedia_administration.png",
+    adm3rd: "wikipedia_administration.png",
+    airport: "wikipedia_helicopter.png",
+    city: "wikipedia_smallcity.png",
+    glacier: "wikipedia_glacier-2.png",
+    landmark: "wikipedia_landmark.png",
+    railwaystation: "wikipedia_train.png",
+    river: "wikipedia_river-2.png",
+    mountain: "wikipedia_mountains.png",
+    waterbody: "wikipedia_lake.png",
+    default: "wikipedia_information.png",
+};
+
+//Fetch sagt immer, dass etwas aus dem Internet zurückgegeben wird! Hier der WIkipedia Artikel URL beigeonames.org aufrufen und JSON Daten abholen
 fetch(url).then(
     response => response.json()
 ).then(jsonData => {
     console.log(jsonData);
-    
+
 //Wikipedia Artikel zeigen 
     for (let article of jsonData.geonames) {
         let mrk =L.marker([article.lat, article.lng]);
         mrk.addTo(overlays.wikipedia);
+
+        //Popup erzeugen
+        let img ="";
+        if(article.thumbnailImg) {
+            img = `<img src="${article.thumbnailImg}" 
+            alt ="Thumbnail">`;
+        }
+        // Pipup definieren
+        mrk.bindPopup(`
+                <small>${article.feature}</small>
+                <h3>${article.title} (${article.elevation}m)</h3>
+                ${img}
+                <p>${article.summary}</p>
+                <a target="Wikipedia" href="https://${article.wikipediaUrl}">Wikipedia-Artikel</a>
+        `);
     }
 });
 
