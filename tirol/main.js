@@ -54,9 +54,9 @@ const elevationControl = L.control.elevation({
 // Wikipedia Artikel zeichnen -GEO NAMES
 let articleDrawn = {};
 const drawWikipedia =(bounds) =>{
-console.log(bounds);
+//console.log(bounds);
 let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=AnnaKlara123&lang=de&maxRows=30`;
-console.log(url);
+//console.log(url);
 
 
 let icons = {
@@ -78,27 +78,26 @@ let icons = {
 fetch(url).then(
     response => response.json()
 ).then(jsonData => {
-    console.log(jsonData);
+    //console.log(jsonData);
 
 //Wikipedia Artikel zeigen 
     for (let article of jsonData.geonames) {
         // Habe ich den Artikel schon gezeichnet? --> If
         if (articleDrawn[article.wikipediaUrl]) {
             //Ja, nicht noch einmal zeichnen!
-            console.log("schon gesehen", article.wikipediaUrl);
+           // console.log("schon gesehen", article.wikipediaUrl);
             continue;
         } else{
             articleDrawn[article.wikipediaUrl] = true;
         }
 
-        }
-        //welches Icon soll verwendet werden? --> IF abfrage
-        if(icons[article.feature]) {
-// ICON ist bekannt
-        } else {
-            //generisches Icon
-            article.feature="default";
-        }
+       // welches Icon soll verwendet werden?
+       if (icons[article.feature]) {
+        // ein Bekanntes
+    } else {
+        // unser generisches Info-Icon
+        article.feature = "default";
+    }
         let mrk =L.marker([article.lat, article.lng], {
             icon: L.icon({
                 iconUrl: `icons/${icons[article.feature]}`,
@@ -122,11 +121,11 @@ fetch(url).then(
                 ${img}
                 <p>${article.summary}</p>
                 <a target="Wikipedia" href="https://${article.wikipediaUrl}">Wikipedia-Artikel</a>
-        `);
-    }
-);
-
-};
+                `);
+            }
+        });
+    };
+    
 
 //Tracks zeichnen
 const drawTrack = (nr) =>{
