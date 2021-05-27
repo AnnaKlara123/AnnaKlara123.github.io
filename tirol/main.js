@@ -169,10 +169,25 @@ const drawTrack = (nr) =>{
 const selectedTrack = 30;
 drawTrack(selectedTrack);
 
-//
-console.log('biketirol json: ', BIKETIROL);
+//Überschrift auf Seite anpassen auf eigenen Stop!
+const updateTexts = (nr) => {
+    console.log(nr);
+    for (let etappe of BIKETIROL) {
+        //console.log(etappe);
+        // ist es die aktuelle Etappe?
+        if (etappe.nr == nr) {
+            console.log("unsere Etappe", etappe);
+        }
+    }
+};
+
+
+//Pulldown 
+//console.log('biketirol json: ', BIKETIROL);
 let pulldown = document.querySelector("#pulldown");
-console.log('Pulldown: ', pulldown);
+//console.log('Pulldown: ', pulldown);
+
+// Schleife zum AUf au des Dropdown Menues
 let selected = '';
 for (let track of BIKETIROL) {
     if (selectedTrack == track.nr) {
@@ -182,10 +197,16 @@ for (let track of BIKETIROL) {
     }
     pulldown.innerHTML += `<option ${selected} value="${track.nr}">${track.nr}: ${track.etappe}</option>`;
 } 
+// Metadaten der Etappe updaten
+updateTexts(pulldown.value)
 
+ // Eventhandelung für Aenderunge des Dropdowns 
 pulldown.onchange = () => {
-    console.log('changed!!!!!', pulldown.value);
-    drawTrack(pulldown.value);
+    //console.log('changed!!!!!', pulldown.value);
+    drawTrack(pulldown.value)
+    
+    // Metadaten der Etappe updaten
+    updateTexts(pulldown.value)
 }; 
 
 //Event handler map.on (Auf welches Ereigniss er reagieren soll: Zoom, Pan)  
