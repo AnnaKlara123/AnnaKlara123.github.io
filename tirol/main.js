@@ -1,4 +1,4 @@
-/* global L */
+//* global L */
 // Bike Trail Tirol Beispiel
 
 // Kartenhintergründe der basemap.at definieren
@@ -57,10 +57,17 @@ console.log(bounds);
 let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=AnnaKlara123&lang=de&maxRows=30`;
 console.log(url);
 
+//Fetch sagt immer, dass etwas aus dem Internet zurückgegeben wird! Hier der WIkipedia Artikel 
 fetch(url).then(
     response => response.json()
 ).then(jsonData => {
-    console.log(jsonData)
+    console.log(jsonData);
+    
+//Wikipedia Artikel zeigen 
+    for (let article of jsonData.geonames) {
+        let mrk =L.marker([article.lat, article.lng]);
+        mrk.addTo(overlays.wikipedia);
+    }
 });
 
 };
